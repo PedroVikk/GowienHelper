@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: gowien-db
+    environment:
+      POSTGRES_USER: gowien
+      POSTGRES_PASSWORD: gowien
+      POSTGRES_DB: gowien
+    ports:
+      - "5432:5432"
+    volumes:
+      - gowien_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gowien"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  chroma:
+    image: chromadb/chroma:0.5.23
+    container_name: gowien-chroma
+    ports:
+      - "8001:8000"
+    volumes:
+      - gowien_chroma:/chroma/chroma
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: gowien-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - gowien_ollama:/root/.ollama
+    # Para GPU NVIDIA, descomente:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+volumes:
+  gowien_pgdata:
+  gowien_chroma:
+  gowien_ollama:
