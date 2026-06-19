@@ -5,6 +5,7 @@ venv/
 .env
 storage/
 *.sqlite3
+*.db
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
