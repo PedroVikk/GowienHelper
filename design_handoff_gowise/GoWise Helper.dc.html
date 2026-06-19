@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0}
+  .gw-scroll::-webkit-scrollbar{width:0;height:0}
+  .gw-scroll{scrollbar-width:none}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#2B2E35;font-family:Inter,system-ui,sans-serif;padding:56px 48px 80px;color:#ECEDEE">
+
+  <!-- ===== Header / wordmark ===== -->
+  <div style="max-width:980px;margin:0 auto 44px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#8B7CF6,#22D3EE);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(139,124,246,.45)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H5a2 2 0 0 1-2-2Z"/><path d="M21 5a2 2 0 0 0-2-2h-5a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h5a2 2 0 0 0 2-2Z"/></svg>
+      </div>
+      <span style="font-size:24px;font-weight:800;letter-spacing:-.5px">GoWise Helper</span>
+    </div>
+    <p style="margin:14px 0 0;color:#9BA1A6;font-size:15px;max-width:620px;line-height:1.5">Dashboard e Flashcard — duas direções gamificadas em tema escuro. Acentos pastel por disciplina, repetição espaçada e recall ativo. <span style="color:#ECEDEE">pt-BR · Android</span></p>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- SECTION: DASHBOARD -->
+  <!-- ============================================================= -->
+  <div data-screen-label="Dashboard" style="max-width:980px;margin:0 auto 64px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#8B7CF6">01</span>
+      <h2 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-.3px">Dashboard</h2>
+      <div style="flex:1;height:1px;background:#3A3E47"></div>
+    </div>
+
+    <div style="display:flex;gap:56px;flex-wrap:wrap;justify-content:center">
+
+      <!-- ---------- Dashboard A: Bento gamificado ---------- -->
+      <div>
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#8B7CF6;padding:5px 11px;border-radius:999px">OPÇÃO A</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Bento gamificado · densidade alta</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(139,124,246,.06)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <!-- status bar -->
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <!-- scroll content -->
+            <div class="gw-scroll" style="flex:1;overflow-y:auto;padding:8px 18px 20px">
+
+              <!-- greeting -->
+              <div style="display:flex;align-items:center;gap:12px;margin:6px 0 18px">
+                <div style="width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#B6A8F2,#8B7CF6);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#0F1115">M</div>
+                <div style="flex:1">
+                  <div style="font-size:13px;color:#9BA1A6">Olá, {{ name }}</div>
+                  <div style="font-size:17px;font-weight:700;letter-spacing:-.2px">Bora revisar?</div>
+                </div>
+                <div style="width:40px;height:40px;border-radius:13px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;justify-content:center;position:relative">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+                  <div style="position:absolute;top:9px;right:9px;width:8px;height:8px;border-radius:50%;background:#F87171;border:2px solid #1E2128"></div>
+                </div>
+              </div>
+
+              <!-- HERO: level + streak -->
+              <div style="border-radius:24px;padding:18px;background:linear-gradient(135deg,rgba(139,124,246,.22),rgba(34,211,238,.10));border:1px solid #2A2E37;display:flex;align-items:center;gap:16px;margin-bottom:14px">
+                <div style="width:84px;height:84px;border-radius:50%;background:conic-gradient(#8B7CF6 0deg,#8B7CF6 248deg,#2A2E37 248deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(139,124,246,.35)">
+                  <div style="width:66px;height:66px;border-radius:50%;background:#13151A;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                    <span style="font-size:10px;font-weight:700;letter-spacing:1px;color:#9BA1A6">NÍVEL</span>
+                    <span style="font-size:26px;font-weight:800;line-height:1;letter-spacing:-1px">7</span>
+                  </div>
+                </div>
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg>
+                    <span style="font-size:22px;font-weight:800;letter-spacing:-.5px">{{ streak }}</span>
+                    <span style="font-size:13px;color:#9BA1A6;font-weight:500">dias de ofensiva</span>
+                  </div>
+                  <div style="height:8px;border-radius:999px;background:#2A2E37;overflow:hidden;margin-bottom:6px">
+                    <div style="width:69%;height:100%;border-radius:999px;background:linear-gradient(90deg,#8B7CF6,#A78BFA);box-shadow:0 0 12px rgba(139,124,246,.6)"></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px;color:#9BA1A6"><span>1.240 XP</span><span>faltam 560 p/ Nv 8</span></div>
+                </div>
+              </div>
+
+              <!-- TODAY review CTA -->
+              <div style="border-radius:24px;padding:18px;background:#1E2128;border:1px solid #2A2E37;margin-bottom:14px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                  <div>
+                    <div style="font-size:15px;font-weight:700">Revisão de hoje</div>
+                    <div style="font-size:12px;color:#9BA1A6;margin-top:2px">24 cartões · 5 disciplinas · vencendo agora</div>
+                  </div>
+                  <div style="width:50px;height:50px;border-radius:50%;background:conic-gradient(#22D3EE 0deg,#22D3EE 0deg,#2A2E37 0deg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                    <div style="width:40px;height:40px;border-radius:50%;background:#1E2128;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#22D3EE">0/24</div>
+                  </div>
+                </div>
+                <button style="width:100%;border:none;cursor:pointer;height:48px;border-radius:15px;background:linear-gradient(135deg,#8B7CF6,#7C6BF0);color:#0F1115;font-family:inherit;font-size:15px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 24px rgba(139,124,246,.4)">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                  REVISAR AGORA
+                </button>
+              </div>
+
+              <!-- BENTO stats 2x2 -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px">
+                <div style="border-radius:18px;padding:14px;background:#1E2128;border:1px solid #2A2E37">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#FBBF24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg>
+                  <div style="font-size:24px;font-weight:800;letter-spacing:-.5px;margin-top:6px">12</div>
+                  <div style="font-size:11px;color:#9BA1A6">Ofensiva</div>
+                </div>
+                <div style="border-radius:18px;padding:14px;background:#1E2128;border:1px solid #2A2E37">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#22D3EE"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <div style="font-size:24px;font-weight:800;letter-spacing:-.5px;margin-top:6px">240</div>
+                  <div style="font-size:11px;color:#9BA1A6">XP hoje</div>
+                </div>
+                <div style="border-radius:18px;padding:14px;background:#1E2128;border:1px solid #2A2E37">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/></svg>
+                  <div style="font-size:24px;font-weight:800;letter-spacing:-.5px;margin-top:6px">87<span style="font-size:14px;color:#9BA1A6">%</span></div>
+                  <div style="font-size:11px;color:#9BA1A6">Precisão</div>
+                </div>
+                <div style="border-radius:18px;padding:14px;background:#1E2128;border:1px solid #2A2E37">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B6A8F2" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                  <div style="font-size:24px;font-weight:800;letter-spacing:-.5px;margin-top:6px">42<span style="font-size:14px;color:#9BA1A6">min</span></div>
+                  <div style="font-size:11px;color:#9BA1A6">Tempo hoje</div>
+                </div>
+              </div>
+
+              <!-- Missions -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin:18px 2px 12px">
+                <span style="font-size:15px;font-weight:700">Missões diárias</span>
+                <span style="font-size:12px;color:#22D3EE;font-weight:600">2/3</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:6px">
+                <div style="border-radius:16px;padding:12px 14px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:12px">
+                  <div style="width:34px;height:34px;border-radius:11px;background:rgba(52,211,153,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div style="flex:1"><div style="font-size:13px;font-weight:600">Revise 20 cartões</div><div style="height:5px;border-radius:999px;background:#2A2E37;margin-top:6px;overflow:hidden"><div style="width:100%;height:100%;background:#34D399"></div></div></div>
+                  <span style="font-size:12px;font-weight:700;color:#34D399">+50</span>
+                </div>
+                <div style="border-radius:16px;padding:12px 14px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:12px">
+                  <div style="width:34px;height:34px;border-radius:11px;background:rgba(34,211,238,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="#22D3EE"/></svg></div>
+                  <div style="flex:1"><div style="font-size:13px;font-weight:600">Acerte 10 no quiz <span style="color:#9BA1A6;font-weight:500">· 7/10</span></div><div style="height:5px;border-radius:999px;background:#2A2E37;margin-top:6px;overflow:hidden"><div style="width:70%;height:100%;background:#22D3EE"></div></div></div>
+                  <span style="font-size:12px;font-weight:700;color:#9BA1A6">+30</span>
+                </div>
+              </div>
+
+              <!-- Subjects -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 2px 12px">
+                <span style="font-size:15px;font-weight:700">Disciplinas</span>
+                <span style="font-size:12px;color:#9BA1A6;font-weight:600">Ver todas</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <!-- subject row -->
+                <div style="border-radius:18px;padding:13px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:13px">
+                  <div style="width:44px;height:44px;border-radius:50%;background:conic-gradient(#B6A8F2 0deg,#B6A8F2 245deg,#2A2E37 245deg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:34px;height:34px;border-radius:50%;background:#1E2128;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#B6A8F2">68%</div></div>
+                  <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700">Cálculo I</div><div style="font-size:12px;color:#B6A8F2;margin-top:2px">12 cartões para revisar</div></div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+                <div style="border-radius:18px;padding:13px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:13px">
+                  <div style="width:44px;height:44px;border-radius:50%;background:conic-gradient(#F2A6BE 0deg,#F2A6BE 162deg,#2A2E37 162deg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:34px;height:34px;border-radius:50%;background:#1E2128;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#F2A6BE">45%</div></div>
+                  <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700">Anatomia Humana</div><div style="font-size:12px;color:#F2A6BE;margin-top:2px">8 cartões para revisar</div></div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+                <div style="border-radius:18px;padding:13px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:13px">
+                  <div style="width:44px;height:44px;border-radius:50%;background:conic-gradient(#8FE3C4 0deg,#8FE3C4 295deg,#2A2E37 295deg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:34px;height:34px;border-radius:50%;background:#1E2128;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#8FE3C4">82%</div></div>
+                  <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700">Algoritmos</div><div style="font-size:12px;color:#9BA1A6;margin-top:2px">4 cartões para revisar</div></div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- bottom nav -->
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-between;padding:10px 22px 8px;border-top:1px solid #1F232B;background:#13151A">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;color:#8B7CF6"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9 21v-6h6v6"/></svg><span style="font-size:10px;font-weight:600">Início</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;color:#6B7280"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H5a2 2 0 0 1-2-2Z"/><path d="M21 5a2 2 0 0 0-2-2h-5a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h5a2 2 0 0 0 2-2Z"/></svg><span style="font-size:10px;font-weight:500">Disciplinas</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:52px;margin-bottom:2px"><div style="width:50px;height:50px;border-radius:18px;background:linear-gradient(135deg,#8B7CF6,#22D3EE);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(139,124,246,.5)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;color:#6B7280"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3.2" height="6" rx="1"/><rect x="12" y="7" width="3.2" height="10" rx="1"/><rect x="17" y="13" width="3.2" height="4" rx="1"/></svg><span style="font-size:10px;font-weight:500">Stats</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;color:#6B7280"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span style="font-size:10px;font-weight:500">Perfil</span></div>
+            </div>
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#13151A"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- Dashboard B: Foco / feed ---------- -->
+      <div>
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#22D3EE;padding:5px 11px;border-radius:999px">OPÇÃO B</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Foco · revisão em primeiro lugar</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(34,211,238,.06)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <div class="gw-scroll" style="flex:1;overflow-y:auto;padding:8px 18px 20px">
+
+              <!-- compact header -->
+              <div style="display:flex;align-items:center;gap:12px;margin:6px 0 18px">
+                <div style="flex:1">
+                  <div style="font-size:13px;color:#9BA1A6">Bom dia,</div>
+                  <div style="font-size:20px;font-weight:800;letter-spacing:-.4px">{{ name }}</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;background:rgba(251,191,36,.13);border:1px solid rgba(251,191,36,.25);padding:6px 11px;border-radius:999px">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="#FBBF24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg>
+                  <span style="font-size:13px;font-weight:700;color:#FBBF24">{{ streak }}</span>
+                </div>
+                <div style="width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#97C6F2,#22D3EE);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#0F1115">M</div>
+              </div>
+
+              <!-- week streak strip -->
+              <div style="display:flex;justify-content:space-between;margin-bottom:18px;padding:0 2px">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><span style="font-size:11px;color:#9BA1A6">S</span><div style="width:34px;height:34px;border-radius:12px;background:rgba(139,124,246,.18);display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8B7CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><span style="font-size:11px;color:#9BA1A6">T</span><div style="width:34px;height:34px;border-radius:12px;background:rgba(139,124,246,.18);display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8B7CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><span style="font-size:11px;color:#9BA1A6">Q</span><div style="width:34px;height:34px;border-radius:12px;background:rgba(139,124,246,.18);display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8B7CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><span style="font-size:11px;color:#9BA1A6">Q</span><div style="width:34px;height:34px;border-radius:12px;background:rgba(139,124,246,.18);display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8B7CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><span style="font-size:11px;color:#FBBF24;font-weight:700">S</span><div style="width:34px;height:34px;border-radius:12px;background:#FBBF24;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(251,191,36,.5)"><svg width="16" height="16" viewBox="0 0 24 24" fill="#0F1115"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg></div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><span style="font-size:11px;color:#9BA1A6">S</span><div style="width:34px;height:34px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37"></div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><span style="font-size:11px;color:#9BA1A6">D</span><div style="width:34px;height:34px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37"></div></div>
+              </div>
+
+              <!-- BIG focus card -->
+              <div style="border-radius:26px;padding:22px;background:radial-gradient(120% 120% at 0% 0%,rgba(139,124,246,.28),rgba(30,33,40,1) 60%);border:1px solid #2A2E37;margin-bottom:14px">
+                <div style="font-size:12px;font-weight:700;letter-spacing:1.5px;color:#B6A8F2;margin-bottom:14px">CONTINUE DE ONDE PAROU</div>
+                <div style="display:flex;align-items:center;gap:18px">
+                  <div style="width:100px;height:100px;border-radius:50%;background:conic-gradient(#8B7CF6 0deg,#8B7CF6 180deg,#2A2E37 180deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 30px rgba(139,124,246,.3)">
+                    <div style="width:80px;height:80px;border-radius:50%;background:#15171C;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                      <span style="font-size:24px;font-weight:800;letter-spacing:-1px;line-height:1">12<span style="font-size:14px;color:#9BA1A6">/24</span></span>
+                      <span style="font-size:10px;color:#9BA1A6;margin-top:2px">cartões</span>
+                    </div>
+                  </div>
+                  <div style="flex:1">
+                    <div style="font-size:17px;font-weight:700;letter-spacing:-.2px">Cálculo I</div>
+                    <div style="font-size:12px;color:#9BA1A6;margin-top:3px;margin-bottom:14px">Derivadas · repetição espaçada</div>
+                    <button style="border:none;cursor:pointer;height:42px;padding:0 20px;border-radius:13px;background:#8B7CF6;color:#0F1115;font-family:inherit;font-size:14px;font-weight:800;display:flex;align-items:center;gap:7px;box-shadow:0 6px 18px rgba(139,124,246,.4)">Continuar<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- daily goal mini -->
+              <div style="border-radius:18px;padding:14px 16px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:13px;margin-bottom:18px">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#22D3EE"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span style="font-weight:600">Meta diária de XP</span><span style="color:#22D3EE;font-weight:700">240/300</span></div><div style="height:7px;border-radius:999px;background:#2A2E37;overflow:hidden"><div style="width:80%;height:100%;border-radius:999px;background:linear-gradient(90deg,#22D3EE,#67E8F9);box-shadow:0 0 12px rgba(34,211,238,.5)"></div></div></div>
+              </div>
+
+              <!-- continue studying horizontal -->
+              <div style="font-size:15px;font-weight:700;margin:2px 2px 12px">Continue estudando</div>
+              <div class="gw-scroll" style="display:flex;gap:11px;overflow-x:auto;margin:0 -18px 18px;padding:0 18px 4px">
+                <div style="flex-shrink:0;width:130px;border-radius:18px;padding:14px;background:#1E2128;border:1px solid #2A2E37"><div style="width:38px;height:38px;border-radius:12px;background:rgba(182,168,242,.18);display:flex;align-items:center;justify-content:center;margin-bottom:30px"><div style="width:16px;height:16px;border-radius:5px;background:#B6A8F2"></div></div><div style="font-size:13px;font-weight:700">Cálculo I</div><div style="font-size:11px;color:#B6A8F2;margin-top:3px">68% · 12 novos</div></div>
+                <div style="flex-shrink:0;width:130px;border-radius:18px;padding:14px;background:#1E2128;border:1px solid #2A2E37"><div style="width:38px;height:38px;border-radius:12px;background:rgba(242,166,190,.18);display:flex;align-items:center;justify-content:center;margin-bottom:30px"><div style="width:16px;height:16px;border-radius:5px;background:#F2A6BE"></div></div><div style="font-size:13px;font-weight:700">Anatomia</div><div style="font-size:11px;color:#F2A6BE;margin-top:3px">45% · 8 novos</div></div>
+                <div style="flex-shrink:0;width:130px;border-radius:18px;padding:14px;background:#1E2128;border:1px solid #2A2E37"><div style="width:38px;height:38px;border-radius:12px;background:rgba(143,227,196,.18);display:flex;align-items:center;justify-content:center;margin-bottom:30px"><div style="width:16px;height:16px;border-radius:5px;background:#8FE3C4"></div></div><div style="font-size:13px;font-weight:700">Algoritmos</div><div style="font-size:11px;color:#8FE3C4;margin-top:3px">82% · 4 novos</div></div>
+              </div>
+
+              <!-- subjects with bars -->
+              <div style="font-size:15px;font-weight:700;margin:2px 2px 12px">Suas disciplinas</div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <div style="border-radius:16px;padding:13px 15px;background:#1E2128;border:1px solid #2A2E37"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:14px;font-weight:600">Microeconomia</span><span style="font-size:12px;color:#9BA1A6">30%</span></div><div style="height:7px;border-radius:999px;background:#2A2E37;overflow:hidden"><div style="width:30%;height:100%;border-radius:999px;background:#97C6F2"></div></div></div>
+                <div style="border-radius:16px;padding:13px 15px;background:#1E2128;border:1px solid #2A2E37"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><span style="font-size:14px;font-weight:600">Bioquímica</span><span style="font-size:12px;color:#9BA1A6">55%</span></div><div style="height:7px;border-radius:999px;background:#2A2E37;overflow:hidden"><div style="width:55%;height:100%;border-radius:999px;background:#F2DD97"></div></div></div>
+              </div>
+
+            </div>
+
+            <!-- bottom nav -->
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-between;padding:10px 22px 8px;border-top:1px solid #1F232B;background:#13151A">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;color:#8B7CF6"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9 21v-6h6v6"/></svg><span style="font-size:10px;font-weight:600">Início</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;color:#6B7280"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H5a2 2 0 0 1-2-2Z"/><path d="M21 5a2 2 0 0 0-2-2h-5a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h5a2 2 0 0 0 2-2Z"/></svg><span style="font-size:10px;font-weight:500">Disciplinas</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:52px;margin-bottom:2px"><div style="width:50px;height:50px;border-radius:18px;background:linear-gradient(135deg,#8B7CF6,#22D3EE);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(139,124,246,.5)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;color:#6B7280"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3.2" height="6" rx="1"/><rect x="12" y="7" width="3.2" height="10" rx="1"/><rect x="17" y="13" width="3.2" height="4" rx="1"/></svg><span style="font-size:10px;font-weight:500">Stats</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;color:#6B7280"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span style="font-size:10px;font-weight:500">Perfil</span></div>
+            </div>
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#13151A"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- SECTION: FLASHCARD -->
+  <!-- ============================================================= -->
+  <div data-screen-label="Flashcard" style="max-width:980px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#8B7CF6">02</span>
+      <h2 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-.3px">Flashcard</h2>
+      <div style="flex:1;height:1px;background:#3A3E47"></div>
+      <span style="font-size:12px;color:#9BA1A6">Toque no cartão para virar</span>
+    </div>
+
+    <div style="display:flex;gap:56px;flex-wrap:wrap;justify-content:center">
+
+      <!-- ---------- Flashcard A: Flip + confiança (SM-2) ---------- -->
+      <div>
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#8B7CF6;padding:5px 11px;border-radius:999px">OPÇÃO A</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Flip + escala de confiança · repetição espaçada</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(139,124,246,.06)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <!-- top bar: close, deck, progress -->
+            <div style="padding:6px 18px 0;flex-shrink:0">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+                <div style="width:38px;height:38px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>
+                <div style="flex:1;text-align:center"><div style="font-size:14px;font-weight:700">Cálculo I</div><div style="font-size:11px;color:#B6A8F2">Derivadas</div></div>
+                <div style="display:flex;align-items:center;gap:5px;background:#1E2128;border:1px solid #2A2E37;padding:7px 11px;border-radius:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span style="font-size:12px;font-weight:600;color:#9BA1A6">04:12</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                <div style="flex:1;height:7px;border-radius:999px;background:#1E2128;overflow:hidden"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#8B7CF6,#A78BFA);box-shadow:0 0 10px rgba(139,124,246,.6);width:{{ pctA }}"></div></div>
+                <span style="font-size:12px;font-weight:700;color:#ECEDEE">{{ doneA }}/{{ totalA }}</span>
+              </div>
+            </div>
+
+            <!-- card flip area -->
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:14px 18px">
+              <div onClick="{{ onFlipA }}" style="width:100%;height:100%;perspective:1600px;cursor:pointer">
+                <div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);transform:{{ transformA }}">
+
+                  <!-- FRONT -->
+                  <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:28px;background:linear-gradient(160deg,#20232B,#15171C);border:1px solid #2A2E37;padding:26px;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.45)">
+                    <div style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:50%;background:#B6A8F2"></span><span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#B6A8F2">PERGUNTA</span></div>
+                    <div style="flex:1;display:flex;align-items:center"><div style="font-size:25px;font-weight:700;line-height:1.32;letter-spacing:-.3px;text-wrap:pretty">{{ frontA }}</div></div>
+                    <div style="display:flex;align-items:center;justify-content:center;gap:8px;color:#6B7280"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6a2 2 0 0 0 2 2h6"/><path d="m9 11 3 4 9-9"/><path d="M21 12v-1a2 2 0 0 0-2-2h-6"/></svg><span style="font-size:13px;font-weight:500">Toque para revelar a resposta</span></div>
+                  </div>
+
+                  <!-- BACK -->
+                  <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:28px;background:linear-gradient(160deg,#262031,#1A1622);border:1px solid rgba(139,124,246,.4);padding:26px;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(139,124,246,.18)">
+                    <div style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:50%;background:#8B7CF6"></span><span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#8B7CF6">RESPOSTA</span></div>
+                    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px">
+                      <div style="font-size:34px;font-weight:800;letter-spacing:-.8px;color:#ECEDEE">{{ backA }}</div>
+                      <div style="font-size:14px;line-height:1.5;color:#9BA1A6;border-left:2px solid #8B7CF6;padding-left:12px;text-wrap:pretty">{{ whyA }}</div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:center;gap:8px;color:#6B7280"><span style="font-size:13px;font-weight:500">Como você se saiu?</span></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- bottom controls -->
+            <div style="flex-shrink:0;padding:8px 18px 12px">
+              <sc-if value="{{ notFlipA }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ onFlipA }}" style="width:100%;border:none;cursor:pointer;height:52px;border-radius:16px;background:#1E2128;border:1px solid #2A2E37;color:#ECEDEE;font-family:inherit;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#B6A8F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Revelar resposta
+                </button>
+              </sc-if>
+              <sc-if value="{{ flipA }}" hint-placeholder-val="{{ false }}">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <button onClick="{{ onRateA }}" style="border:none;cursor:pointer;height:60px;border-radius:16px;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);color:#F87171;font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="font-size:14px;font-weight:800">Errei</span><span style="font-size:11px;opacity:.8">&lt; 1 min</span></button>
+                  <button onClick="{{ onRateA }}" style="border:none;cursor:pointer;height:60px;border-radius:16px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.35);color:#FBBF24;font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="font-size:14px;font-weight:800">Difícil</span><span style="font-size:11px;opacity:.8">6 min</span></button>
+                  <button onClick="{{ onRateA }}" style="border:none;cursor:pointer;height:60px;border-radius:16px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);color:#22D3EE;font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="font-size:14px;font-weight:800">Bom</span><span style="font-size:11px;opacity:.8">1 dia</span></button>
+                  <button onClick="{{ onRateA }}" style="border:none;cursor:pointer;height:60px;border-radius:16px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.35);color:#34D399;font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="font-size:14px;font-weight:800">Fácil</span><span style="font-size:11px;opacity:.8">4 dias</span></button>
+                </div>
+              </sc-if>
+            </div>
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- Flashcard B: Swipe + maestria ---------- -->
+      <div>
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#22D3EE;padding:5px 11px;border-radius:999px">OPÇÃO B</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Pilha + maestria · arraste · dica mnemônica</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(242,166,190,.07)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <!-- top bar -->
+            <div style="padding:6px 18px 0;flex-shrink:0">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+                <div style="width:38px;height:38px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></div>
+                <div style="flex:1;text-align:center"><div style="font-size:14px;font-weight:700">Anatomia</div><div style="font-size:11px;color:#F2A6BE">Sistema esquelético</div></div>
+                <div style="display:flex;align-items:center;gap:5px;background:#1E2128;border:1px solid #2A2E37;padding:7px 11px;border-radius:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBF24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg><span style="font-size:12px;font-weight:700;color:#FBBF24">{{ streak }}</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:7px;border-radius:999px;background:#1E2128;overflow:hidden"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#F2A6BE,#F9C2D4);box-shadow:0 0 10px rgba(242,166,190,.5);width:{{ pctB }}"></div></div><span style="font-size:12px;font-weight:700;color:#ECEDEE">{{ doneB }}/{{ totalB }} dominados</span></div>
+            </div>
+
+            <!-- card stack -->
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 18px;position:relative">
+              <!-- peeking cards -->
+              <div style="position:absolute;width:280px;height:74%;border-radius:26px;background:#181B21;border:1px solid #23262E;transform:scale(.9) translateY(18px);top:13%"></div>
+              <div style="position:absolute;width:310px;height:76%;border-radius:27px;background:#1B1E25;border:1px solid #262932;transform:scale(.95) translateY(9px);top:12%"></div>
+
+              <div onClick="{{ onFlipB }}" style="position:relative;width:100%;height:80%;perspective:1600px;cursor:pointer;z-index:2">
+                <div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);transform:{{ transformB }}">
+
+                  <!-- FRONT -->
+                  <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:28px;background:linear-gradient(160deg,#22232B,#15171C);border:1px solid #2A2E37;padding:24px;display:flex;flex-direction:column;box-shadow:0 24px 56px rgba(0,0,0,.5)">
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                      <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#F2A6BE">PERGUNTA</span>
+                      <div style="display:flex;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#F2A6BE"></span><span style="width:8px;height:8px;border-radius:50%;background:#F2A6BE"></span><span style="width:8px;height:8px;border-radius:50%;background:#F2A6BE"></span><span style="width:8px;height:8px;border-radius:50%;background:#2A2E37"></span><span style="width:8px;height:8px;border-radius:50%;background:#2A2E37"></span></div>
+                    </div>
+                    <div style="flex:1;display:flex;align-items:center"><div style="font-size:25px;font-weight:700;line-height:1.32;letter-spacing:-.3px;text-wrap:pretty">{{ frontB }}</div></div>
+                    <div style="border-radius:14px;background:rgba(242,166,190,.1);border:1px solid rgba(242,166,190,.25);padding:11px 13px;display:flex;align-items:center;gap:9px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F2A6BE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2Z"/></svg><span style="font-size:13px;font-weight:600;color:#F2A6BE">Dica: o rádio fica do lado do polegar</span></div>
+                  </div>
+
+                  <!-- BACK -->
+                  <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:28px;background:linear-gradient(160deg,#2A2026,#1C161A);border:1px solid rgba(242,166,190,.4);padding:24px;display:flex;flex-direction:column;box-shadow:0 24px 56px rgba(242,166,190,.16)">
+                    <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#F2A6BE">RESPOSTA</span>
+                    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px">
+                      <div style="font-size:30px;font-weight:800;letter-spacing:-.6px;color:#ECEDEE;line-height:1.2">{{ backB }}</div>
+                      <div style="font-size:14px;line-height:1.5;color:#9BA1A6;border-left:2px solid #F2A6BE;padding-left:12px;text-wrap:pretty">{{ hintB }}</div>
+                    </div>
+                    <div style="text-align:center;font-size:13px;color:#6B7280;font-weight:500">Arraste para classificar</div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- bottom controls: swipe buttons -->
+            <div style="flex-shrink:0;padding:4px 18px 12px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <button onClick="{{ onRateB }}" style="flex:1;border:none;cursor:pointer;height:58px;border-radius:18px;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);color:#F87171;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;font-size:15px;font-weight:800"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Revisar</button>
+                <button onClick="{{ onRateB }}" style="flex:1;border:none;cursor:pointer;height:58px;border-radius:18px;background:linear-gradient(135deg,#34D399,#22C088);color:#0F1115;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;font-size:15px;font-weight:800;box-shadow:0 8px 22px rgba(52,211,153,.35)">Lembrei<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+              </div>
+              <div style="text-align:center;font-size:11px;color:#6B7280;margin-top:9px">Arraste ← revisar depois · → já lembro</div>
+            </div>
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- SECTION: DETALHE + QUIZ -->
+  <!-- ============================================================= -->
+  <div style="max-width:980px;margin:64px auto 0">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#8B7CF6">03</span>
+      <h2 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-.3px">Detalhe da disciplina + Quiz</h2>
+      <div style="flex:1;height:1px;background:#3A3E47"></div>
+      <span style="font-size:12px;color:#9BA1A6">Abas e respostas são interativas</span>
+    </div>
+
+    <div style="display:flex;gap:56px;flex-wrap:wrap;justify-content:center">
+
+      <!-- ---------- Detalhe da disciplina ---------- -->
+      <div data-screen-label="Detalhe">
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#B6A8F2;padding:5px 11px;border-radius:999px">DETALHE</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Abas: Resumo · Flashcards · Quiz · Mapa</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(182,168,242,.07)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <!-- header -->
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 18px 0;flex-shrink:0">
+              <div style="width:38px;height:38px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></div>
+              <div style="flex:1;font-size:17px;font-weight:800;letter-spacing:-.3px">Cálculo I</div>
+              <div style="width:38px;height:38px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="#9BA1A6"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></div>
+            </div>
+
+            <!-- hero -->
+            <div style="margin:14px 18px 0;border-radius:24px;padding:18px;background:linear-gradient(150deg,rgba(182,168,242,.22),rgba(30,33,40,1) 70%);border:1px solid #2A2E37;display:flex;align-items:center;gap:16px;flex-shrink:0">
+              <div style="width:78px;height:78px;border-radius:50%;background:conic-gradient(#B6A8F2 0deg,#B6A8F2 245deg,#2A2E37 245deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 22px rgba(182,168,242,.3)"><div style="width:62px;height:62px;border-radius:50%;background:#15171C;display:flex;flex-direction:column;align-items:center;justify-content:center"><span style="font-size:20px;font-weight:800;letter-spacing:-.5px;color:#B6A8F2">68%</span><span style="font-size:9px;color:#9BA1A6">dominado</span></div></div>
+              <div style="flex:1">
+                <div style="font-size:13px;color:#B6A8F2;font-weight:700">Nível 4 · Aprendiz</div>
+                <div style="display:flex;gap:16px;margin-top:10px">
+                  <div><div style="font-size:18px;font-weight:800">86</div><div style="font-size:10px;color:#9BA1A6">cartões</div></div>
+                  <div><div style="font-size:18px;font-weight:800">87%</div><div style="font-size:10px;color:#9BA1A6">precisão</div></div>
+                  <div><div style="font-size:18px;font-weight:800;color:#FBBF24">12</div><div style="font-size:10px;color:#9BA1A6">ofensiva</div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- tabs -->
+            <div style="display:flex;margin:16px 18px 0;border-bottom:1px solid #1F232B;flex-shrink:0">
+              <div onClick="{{ setResumo }}" style="{{ tsResumo }}">Resumo</div>
+              <div onClick="{{ setFlash }}" style="{{ tsFlash }}">Flashcards</div>
+              <div onClick="{{ setQuiz }}" style="{{ tsQuiz }}">Quiz</div>
+              <div onClick="{{ setMapa }}" style="{{ tsMapa }}">Mapa</div>
+            </div>
+
+            <!-- panels -->
+            <div class="gw-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 20px">
+
+              <sc-if value="{{ isResumo }}" hint-placeholder-val="{{ true }}">
+                <div style="border-radius:20px;padding:17px;background:#1E2128;border:1px solid #2A2E37;margin-bottom:14px">
+                  <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B6A8F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.94 14.66A5 5 0 1 1 14 14.06"/><path d="m12 14 .01 6"/><path d="M9 21h6"/></svg><span style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#B6A8F2">RESUMO</span></div>
+                  <p style="margin:0 0 14px;font-size:14px;line-height:1.6;color:#C8CDD3;text-wrap:pretty">A derivada mede a taxa de variação instantânea de uma função. As regras essenciais são: tombo (potência), produto, quociente e cadeia — base para todo o cálculo diferencial.</p>
+                  <div style="display:flex;flex-direction:column;gap:9px">
+                    <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#ECEDEE"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Regra do tombo: xⁿ → n·xⁿ⁻¹</div>
+                    <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#ECEDEE"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Regra do produto e do quociente</div>
+                    <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#ECEDEE"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Regra da cadeia para funções compostas</div>
+                  </div>
+                  <div style="margin-top:14px;font-size:11px;color:#6B7280">Gerado de 3 PDFs · 24 páginas · há 2 dias</div>
+                </div>
+                <button style="width:100%;border:none;cursor:pointer;height:48px;border-radius:15px;background:linear-gradient(135deg,#B6A8F2,#8B7CF6);color:#0F1115;font-family:inherit;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 22px rgba(182,168,242,.35)">Continuar estudando<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              </sc-if>
+
+              <sc-if value="{{ isFlash }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
+                  <div style="border-radius:16px;padding:14px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:13px"><div style="width:8px;height:40px;border-radius:99px;background:#B6A8F2"></div><div style="flex:1"><div style="font-size:14px;font-weight:700">Derivadas</div><div style="font-size:12px;color:#B6A8F2;margin-top:2px">12 cartões para revisar</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+                  <div style="border-radius:16px;padding:14px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:13px"><div style="width:8px;height:40px;border-radius:99px;background:#34D399"></div><div style="flex:1"><div style="font-size:14px;font-weight:700">Limites</div><div style="font-size:12px;color:#9BA1A6;margin-top:2px">Em dia · próxima em 2 dias</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+                  <div style="border-radius:16px;padding:14px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:13px"><div style="width:8px;height:40px;border-radius:99px;background:#B6A8F2"></div><div style="flex:1"><div style="font-size:14px;font-weight:700">Integrais</div><div style="font-size:12px;color:#B6A8F2;margin-top:2px">8 cartões para revisar</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+                </div>
+                <button style="width:100%;border:none;cursor:pointer;height:48px;border-radius:15px;background:linear-gradient(135deg,#B6A8F2,#8B7CF6);color:#0F1115;font-family:inherit;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 22px rgba(182,168,242,.35)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>REVISAR 20 CARTÕES</button>
+              </sc-if>
+
+              <sc-if value="{{ isQuizTab }}" hint-placeholder-val="{{ false }}">
+                <div style="border-radius:20px;padding:20px;background:#1E2128;border:1px solid #2A2E37;text-align:center;margin-bottom:14px">
+                  <div style="width:58px;height:58px;border-radius:18px;background:rgba(34,211,238,.14);display:flex;align-items:center;justify-content:center;margin:0 auto 14px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+                  <div style="font-size:17px;font-weight:800">Quiz rápido · Derivadas</div>
+                  <div style="font-size:13px;color:#9BA1A6;margin-top:5px">10 questões · feedback imediato com explicação</div>
+                  <div style="display:flex;justify-content:center;gap:24px;margin:18px 0"><div><div style="font-size:20px;font-weight:800;color:#34D399">87%</div><div style="font-size:11px;color:#9BA1A6">melhor nota</div></div><div><div style="font-size:20px;font-weight:800">3</div><div style="font-size:11px;color:#9BA1A6">tentativas</div></div></div>
+                  <button style="width:100%;border:none;cursor:pointer;height:48px;border-radius:15px;background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#0F1115;font-family:inherit;font-size:14px;font-weight:800;box-shadow:0 8px 22px rgba(34,211,238,.3)">INICIAR QUIZ</button>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isMapa }}" hint-placeholder-val="{{ false }}">
+                <div style="border-radius:20px;padding:22px 16px;background:#15171C;border:1px solid #2A2E37;display:flex;flex-direction:column;align-items:center">
+                  <div style="padding:11px 20px;border-radius:14px;background:linear-gradient(135deg,#B6A8F2,#8B7CF6);color:#0F1115;font-size:15px;font-weight:800;box-shadow:0 6px 18px rgba(182,168,242,.4)">Derivadas</div>
+                  <div style="width:2px;height:22px;background:#2A2E37"></div>
+                  <div style="width:74%;height:2px;background:#2A2E37"></div>
+                  <div style="display:flex;justify-content:space-between;width:84%;margin-top:-1px">
+                    <div style="width:2px;height:18px;background:#2A2E37"></div>
+                    <div style="width:2px;height:18px;background:#2A2E37"></div>
+                    <div style="width:2px;height:18px;background:#2A2E37"></div>
+                  </div>
+                  <div style="display:flex;gap:9px;margin-top:6px;flex-wrap:wrap;justify-content:center">
+                    <div style="padding:9px 13px;border-radius:11px;background:#1E2128;border:1px solid #B6A8F2;color:#B6A8F2;font-size:12px;font-weight:700">Regras básicas</div>
+                    <div style="padding:9px 13px;border-radius:11px;background:#1E2128;border:1px solid #2A2E37;color:#ECEDEE;font-size:12px;font-weight:600">Trigonométricas</div>
+                    <div style="padding:9px 13px;border-radius:11px;background:#1E2128;border:1px solid #2A2E37;color:#ECEDEE;font-size:12px;font-weight:600">Aplicações</div>
+                  </div>
+                  <div style="display:flex;gap:7px;margin-top:16px;flex-wrap:wrap;justify-content:center">
+                    <span style="padding:7px 11px;border-radius:9px;background:#181B21;border:1px solid #23262E;color:#9BA1A6;font-size:11px">Regra do tombo</span>
+                    <span style="padding:7px 11px;border-radius:9px;background:#181B21;border:1px solid #23262E;color:#9BA1A6;font-size:11px">Cadeia</span>
+                    <span style="padding:7px 11px;border-radius:9px;background:#181B21;border:1px solid #23262E;color:#9BA1A6;font-size:11px">Máx/mín</span>
+                  </div>
+                </div>
+              </sc-if>
+
+            </div>
+
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- Quiz ---------- -->
+      <div data-screen-label="Quiz">
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#22D3EE;padding:5px 11px;border-radius:999px">QUIZ</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Toque numa alternativa para ver o feedback</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(34,211,238,.07)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <!-- top bar -->
+            <div style="padding:6px 18px 0;flex-shrink:0">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+                <div style="width:38px;height:38px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>
+                <div style="flex:1;text-align:center"><div style="font-size:14px;font-weight:700">Quiz · Derivadas</div><div style="font-size:11px;color:#22D3EE">Cálculo I</div></div>
+                <div style="display:flex;align-items:center;gap:5px;background:#1E2128;border:1px solid #2A2E37;padding:7px 11px;border-radius:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span style="font-size:12px;font-weight:600;color:#9BA1A6">02:48</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:7px;border-radius:999px;background:#1E2128;overflow:hidden"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#22D3EE,#67E8F9);box-shadow:0 0 10px rgba(34,211,238,.5);width:{{ qPct }}"></div></div><span style="font-size:12px;font-weight:700;color:#ECEDEE">{{ qNum }}/{{ qTotal }}</span></div>
+            </div>
+
+            <!-- question + options -->
+            <div class="gw-scroll" style="flex:1;overflow-y:auto;padding:18px 18px 12px">
+              <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#22D3EE;margin-bottom:10px">PERGUNTA {{ qNum }}</div>
+              <div style="font-size:23px;font-weight:700;line-height:1.32;letter-spacing:-.3px;margin-bottom:22px;text-wrap:pretty">{{ qText }}</div>
+
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <sc-for list="{{ qOptions }}" as="opt" hint-placeholder-count="4">
+                  <div onClick="{{ opt.onClick }}" style="{{ opt.rowStyle }}">
+                    <div style="{{ opt.circleStyle }}">{{ opt.letter }}</div>
+                    <span style="{{ opt.txtStyle }}">{{ opt.text }}</span>
+                    <sc-if value="{{ opt.isCorrect }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></sc-if>
+                    <sc-if value="{{ opt.isWrong }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ qAnswered }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ qExpStyle }}">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="{{ qResultStyle }}">{{ qResultText }}</span></div>
+                  <p style="margin:0;font-size:13px;line-height:1.55;color:#C8CDD3;text-wrap:pretty">{{ qExp }}</p>
+                </div>
+              </sc-if>
+            </div>
+
+            <!-- next -->
+            <div style="flex-shrink:0;padding:6px 18px 12px">
+              <sc-if value="{{ qAnswered }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ onNextQ }}" style="width:100%;border:none;cursor:pointer;height:52px;border-radius:16px;background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#0F1115;font-family:inherit;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 22px rgba(34,211,238,.3)">Próxima<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+              </sc-if>
+              <sc-if value="{{ qNotAnswered }}" hint-placeholder-val="{{ true }}">
+                <div style="text-align:center;font-size:12px;color:#6B7280;padding:16px 0">Escolha uma alternativa para continuar</div>
+              </sc-if>
+            </div>
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- SECTION: SIMULADO + ESTATÍSTICAS -->
+  <!-- ============================================================= -->
+  <div style="max-width:980px;margin:64px auto 0">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#8B7CF6">04</span>
+      <h2 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-.3px">Simulado + Estatísticas</h2>
+      <div style="flex:1;height:1px;background:#3A3E47"></div>
+    </div>
+
+    <div style="display:flex;gap:56px;flex-wrap:wrap;justify-content:center">
+
+      <!-- ---------- Simulado ---------- -->
+      <div data-screen-label="Simulado">
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#8B7CF6;padding:5px 11px;border-radius:999px">SIMULADO</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Escolha o tamanho · cronômetro · nota final</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(139,124,246,.07)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 18px 0;flex-shrink:0">
+              <div style="width:38px;height:38px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></div>
+              <div style="flex:1;font-size:17px;font-weight:800;letter-spacing:-.3px">Simulado</div>
+            </div>
+
+            <div class="gw-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 16px">
+              <div style="font-size:14px;font-weight:700;margin-bottom:12px">Quantas questões?</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px">
+                <sc-for list="{{ simOptions }}" as="o" hint-placeholder-count="4">
+                  <div onClick="{{ o.onClick }}" style="{{ o.style }}">
+                    <div style="{{ o.numStyle }}">{{ o.n }}</div>
+                    <div style="font-size:12px;color:#9BA1A6;margin-top:2px">questões · {{ o.time }}</div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="border-radius:16px;padding:14px 15px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:12px;margin-bottom:11px">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                <div style="flex:1"><div style="font-size:14px;font-weight:600">Cronômetro</div><div style="font-size:12px;color:#9BA1A6;margin-top:1px">{{ simTime }} sugeridos</div></div>
+                <div style="width:42px;height:25px;border-radius:99px;background:#34D399;display:flex;align-items:center;padding:0 3px;justify-content:flex-end"><div style="width:19px;height:19px;border-radius:50%;background:#0F1115"></div></div>
+              </div>
+
+              <div style="font-size:13px;color:#9BA1A6;margin:16px 2px 10px">Disciplinas incluídas</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px">
+                <span style="display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:99px;background:#1E2128;border:1px solid #2A2E37;font-size:12px;font-weight:600"><span style="width:8px;height:8px;border-radius:50%;background:#B6A8F2"></span>Cálculo I</span>
+                <span style="display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:99px;background:#1E2128;border:1px solid #2A2E37;font-size:12px;font-weight:600"><span style="width:8px;height:8px;border-radius:50%;background:#F2A6BE"></span>Anatomia</span>
+                <span style="display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:99px;background:#1E2128;border:1px solid #2A2E37;font-size:12px;font-weight:600"><span style="width:8px;height:8px;border-radius:50%;background:#8FE3C4"></span>Algoritmos</span>
+              </div>
+
+              <div style="font-size:13px;color:#9BA1A6;margin:0 2px 10px">Últimos simulados</div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="border-radius:14px;padding:12px 14px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:12px"><div style="width:42px;height:42px;border-radius:12px;background:rgba(52,211,153,.14);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#34D399">8.5</div><div style="flex:1"><div style="font-size:13px;font-weight:600">50 questões · Geral</div><div style="font-size:11px;color:#9BA1A6">ontem · 38 min</div></div></div>
+                <div style="border-radius:14px;padding:12px 14px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;gap:12px"><div style="width:42px;height:42px;border-radius:12px;background:rgba(251,191,36,.14);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#FBBF24">7.2</div><div style="flex:1"><div style="font-size:13px;font-weight:600">20 questões · Cálculo I</div><div style="font-size:11px;color:#9BA1A6">há 3 dias · 16 min</div></div></div>
+              </div>
+            </div>
+
+            <div style="flex-shrink:0;padding:6px 18px 12px">
+              <button style="width:100%;border:none;cursor:pointer;height:52px;border-radius:16px;background:linear-gradient(135deg,#8B7CF6,#7C6BF0);color:#0F1115;font-family:inherit;font-size:15px;font-weight:800;letter-spacing:.3px;box-shadow:0 8px 24px rgba(139,124,246,.4)">{{ simCta }}</button>
+            </div>
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- Estatísticas ---------- -->
+      <div data-screen-label="Estatísticas">
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#22D3EE;padding:5px 11px;border-radius:999px">ESTATÍSTICAS</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Progresso, ofensiva e domínio</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(34,211,238,.07)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 18px 0;flex-shrink:0">
+              <div style="flex:1;font-size:20px;font-weight:800;letter-spacing:-.4px">Estatísticas</div>
+              <div style="display:flex;background:#1E2128;border:1px solid #2A2E37;border-radius:10px;padding:3px"><span style="font-size:12px;font-weight:700;padding:5px 11px;border-radius:7px;background:#2A2E37;color:#ECEDEE">Semana</span><span style="font-size:12px;font-weight:600;padding:5px 11px;color:#9BA1A6">Mês</span></div>
+            </div>
+
+            <div class="gw-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 20px">
+              <!-- KPI tiles -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:16px">
+                <div style="border-radius:16px;padding:13px;background:#1E2128;border:1px solid #2A2E37"><div style="font-size:20px;font-weight:800;letter-spacing:-.5px">14<span style="font-size:12px;color:#9BA1A6">h</span></div><div style="font-size:10px;color:#9BA1A6;margin-top:2px">tempo total</div></div>
+                <div style="border-radius:16px;padding:13px;background:#1E2128;border:1px solid #2A2E37"><div style="font-size:20px;font-weight:800;letter-spacing:-.5px;color:#34D399">84<span style="font-size:12px">%</span></div><div style="font-size:10px;color:#9BA1A6;margin-top:2px">precisão</div></div>
+                <div style="border-radius:16px;padding:13px;background:#1E2128;border:1px solid #2A2E37"><div style="font-size:20px;font-weight:800;letter-spacing:-.5px">312</div><div style="font-size:10px;color:#9BA1A6;margin-top:2px">dominados</div></div>
+              </div>
+
+              <!-- weekly bar chart -->
+              <div style="border-radius:20px;padding:17px;background:#1E2128;border:1px solid #2A2E37;margin-bottom:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><span style="font-size:14px;font-weight:700">Atividade da semana</span><span style="font-size:12px;color:#22D3EE;font-weight:600">+18%</span></div>
+                <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px;height:104px">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px"><div style="width:100%;height:34px;border-radius:7px;background:#3A3457"></div><span style="font-size:10px;color:#9BA1A6">S</span></div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px"><div style="width:100%;height:53px;border-radius:7px;background:#5B4F9E"></div><span style="font-size:10px;color:#9BA1A6">T</span></div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px"><div style="width:100%;height:27px;border-radius:7px;background:#3A3457"></div><span style="font-size:10px;color:#9BA1A6">Q</span></div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px"><div style="width:100%;height:64px;border-radius:7px;background:#5B4F9E"></div><span style="font-size:10px;color:#9BA1A6">Q</span></div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px"><div style="width:100%;height:46px;border-radius:7px;background:#5B4F9E"></div><span style="font-size:10px;color:#9BA1A6">S</span></div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px"><div style="width:100%;height:77px;border-radius:7px;background:linear-gradient(180deg,#A78BFA,#8B7CF6);box-shadow:0 0 14px rgba(139,124,246,.5)"></div><span style="font-size:10px;color:#8B7CF6;font-weight:700">S</span></div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px"><div style="width:100%;height:18px;border-radius:7px;background:#2A2E37"></div><span style="font-size:10px;color:#9BA1A6">D</span></div>
+                </div>
+              </div>
+
+              <!-- mastery per discipline -->
+              <div style="font-size:14px;font-weight:700;margin:0 2px 12px">Domínio por disciplina</div>
+              <div style="display:flex;flex-direction:column;gap:13px">
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px"><span style="font-weight:600">Cálculo I</span><span style="color:#9BA1A6">68%</span></div><div style="height:8px;border-radius:999px;background:#2A2E37;overflow:hidden"><div style="width:68%;height:100%;border-radius:999px;background:#B6A8F2"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px"><span style="font-weight:600">Algoritmos</span><span style="color:#9BA1A6">82%</span></div><div style="height:8px;border-radius:999px;background:#2A2E37;overflow:hidden"><div style="width:82%;height:100%;border-radius:999px;background:#8FE3C4"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px"><span style="font-weight:600">Anatomia</span><span style="color:#9BA1A6">45%</span></div><div style="height:8px;border-radius:999px;background:#2A2E37;overflow:hidden"><div style="width:45%;height:100%;border-radius:999px;background:#F2A6BE"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px"><span style="font-weight:600">Psicologia</span><span style="color:#9BA1A6">30%</span></div><div style="height:8px;border-radius:999px;background:#2A2E37;overflow:hidden"><div style="width:30%;height:100%;border-radius:999px;background:#97C6F2"></div></div></div>
+              </div>
+            </div>
+
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- SECTION: QUIZ POR TEMA -->
+  <!-- ============================================================= -->
+  <div style="max-width:980px;margin:64px auto 0">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#8B7CF6">05</span>
+      <h2 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-.3px">Quiz por tema</h2>
+      <div style="flex:1;height:1px;background:#3A3E47"></div>
+      <span style="font-size:12px;color:#9BA1A6">Digite o tema e gere o quiz — toque em "Gerar"</span>
+    </div>
+
+    <div style="display:flex;gap:56px;flex-wrap:wrap;justify-content:center">
+
+      <div data-screen-label="Quiz por tema">
+        <div style="margin-bottom:16px">
+          <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;color:#0F1115;background:#97C6F2;padding:5px 11px;border-radius:999px">QUIZ POR TEMA</span>
+          <div style="margin-top:8px;font-size:14px;color:#9BA1A6">Escolha a disciplina + tema · quiz focado só nisso</div>
+        </div>
+
+        <div style="width:384px;height:812px;border-radius:46px;background:#0A0A0C;padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.05),0 0 60px rgba(151,198,242,.08)">
+          <div style="width:100%;height:100%;border-radius:36px;overflow:hidden;background:#0F1115;display:flex;flex-direction:column">
+
+            <div style="height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0">
+              <span style="font-size:13px;font-weight:700;letter-spacing:.3px;color:#ECEDEE">9:41</span>
+              <div style="display:flex;align-items:center;gap:7px;color:#ECEDEE">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 2.7 6 .7 9.3L12 21 23.3 9.3C21.3 6 17 4 12 4Z" opacity=".95"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="14" width="4" height="7" rx="1"/><rect x="9" y="9" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg>
+                <svg width="22" height="15" viewBox="0 0 28 16" fill="none"><rect x="1" y="2" width="23" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="4" width="16" height="8" rx="1.5" fill="currentColor"/><rect x="25" y="6" width="2" height="4" rx="1" fill="currentColor"/></svg>
+              </div>
+            </div>
+
+            <!-- SETUP -->
+            <sc-if value="{{ isThemeSetup }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;align-items:center;gap:12px;padding:8px 18px 0;flex-shrink:0">
+                <div style="flex:1;font-size:20px;font-weight:800;letter-spacing:-.4px">Novo quiz por tema</div>
+              </div>
+              <div class="gw-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 16px">
+                <div style="font-size:13px;color:#9BA1A6;margin-bottom:10px">Disciplina</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+                  <sc-for list="{{ discChips }}" as="d" hint-placeholder-count="4">
+                    <span onClick="{{ d.onClick }}" style="{{ d.style }}">{{ d.name }}</span>
+                  </sc-for>
+                </div>
+
+                <div style="font-size:13px;color:#9BA1A6;margin-bottom:10px">Tema de estudo</div>
+                <div style="border-radius:16px;background:#1E2128;border:1px solid #97C6F2;padding:4px 6px 4px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#97C6F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M8 10h8"/><path d="M8 14h6"/></svg>
+                  <input value="{{ theme }}" onInput="{{ onThemeInput }}" placeholder="Ex.: Teorias da personalidade" style="flex:1;background:transparent;border:none;outline:none;color:#ECEDEE;font-family:inherit;font-size:15px;font-weight:600;padding:11px 0" />
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;margin-bottom:22px;padding:0 2px">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span style="font-size:12px;color:#9BA1A6">As perguntas ficam <span style="color:#34D399;font-weight:600">presas a este tema</span> — sem fugir do assunto.</span>
+                </div>
+
+                <div style="font-size:13px;color:#9BA1A6;margin-bottom:10px">Nº de questões</div>
+                <div style="display:flex;gap:9px;margin-bottom:18px">
+                  <sc-for list="{{ countOptions }}" as="c" hint-placeholder-count="3">
+                    <div onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.n }}</div>
+                  </sc-for>
+                </div>
+
+                <div style="font-size:13px;color:#9BA1A6;margin-bottom:10px">Dificuldade</div>
+                <div style="display:flex;gap:9px">
+                  <span style="flex:1;text-align:center;padding:11px 0;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;font-size:13px;font-weight:600;color:#9BA1A6">Fácil</span>
+                  <span style="flex:1;text-align:center;padding:11px 0;border-radius:12px;background:rgba(151,198,242,.14);border:1px solid #97C6F2;font-size:13px;font-weight:700;color:#97C6F2">Médio</span>
+                  <span style="flex:1;text-align:center;padding:11px 0;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;font-size:13px;font-weight:600;color:#9BA1A6">Difícil</span>
+                </div>
+              </div>
+              <div style="flex-shrink:0;padding:6px 18px 12px">
+                <button onClick="{{ onGenerate }}" style="width:100%;border:none;cursor:pointer;height:52px;border-radius:16px;background:linear-gradient(135deg,#97C6F2,#22D3EE);color:#0F1115;font-family:inherit;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 24px rgba(151,198,242,.4)">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.94 14.66A5 5 0 1 1 14 14.06"/><path d="m12 14 .01 6"/><path d="M9 21h6"/></svg>
+                  GERAR QUIZ
+                </button>
+              </div>
+            </sc-if>
+
+            <!-- GENERATED QUIZ -->
+            <sc-if value="{{ isThemeQuiz }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:6px 18px 0;flex-shrink:0">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                  <div onClick="{{ onBackTheme }}" style="width:38px;height:38px;border-radius:12px;background:#1E2128;border:1px solid #2A2E37;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9BA1A6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></div>
+                  <div style="flex:1;min-width:0">
+                    <div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ themeDisc }}</div>
+                    <div style="display:flex;align-items:center;gap:5px;margin-top:2px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-size:11px;color:#34D399;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ theme }}</span></div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:2px"><div style="flex:1;height:7px;border-radius:999px;background:#1E2128;overflow:hidden"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#97C6F2,#22D3EE);box-shadow:0 0 10px rgba(151,198,242,.5);width:{{ tqPct }}"></div></div><span style="font-size:12px;font-weight:700;color:#ECEDEE">{{ tqNum }}/{{ tqTotal }}</span></div>
+              </div>
+
+              <div class="gw-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 12px">
+                <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#97C6F2;margin-bottom:10px">PERGUNTA {{ tqNum }}</div>
+                <div style="font-size:22px;font-weight:700;line-height:1.34;letter-spacing:-.3px;margin-bottom:20px;text-wrap:pretty">{{ tqText }}</div>
+                <div style="display:flex;flex-direction:column;gap:11px">
+                  <sc-for list="{{ tqOptions }}" as="opt" hint-placeholder-count="4">
+                    <div onClick="{{ opt.onClick }}" style="{{ opt.rowStyle }}">
+                      <div style="{{ opt.circleStyle }}">{{ opt.letter }}</div>
+                      <span style="{{ opt.txtStyle }}">{{ opt.text }}</span>
+                      <sc-if value="{{ opt.isCorrect }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></sc-if>
+                      <sc-if value="{{ opt.isWrong }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ tqAnswered }}" hint-placeholder-val="{{ false }}">
+                  <div style="{{ tqExpStyle }}">
+                    <div style="margin-bottom:8px"><span style="{{ tqResultStyle }}">{{ tqResultText }}</span></div>
+                    <p style="margin:0;font-size:13px;line-height:1.55;color:#C8CDD3;text-wrap:pretty">{{ tqExp }}</p>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="flex-shrink:0;padding:6px 18px 12px">
+                <sc-if value="{{ tqAnswered }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ onNextTQ }}" style="width:100%;border:none;cursor:pointer;height:52px;border-radius:16px;background:linear-gradient(135deg,#97C6F2,#22D3EE);color:#0F1115;font-family:inherit;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 22px rgba(151,198,242,.3)">Próxima<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0F1115" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+                </sc-if>
+                <sc-if value="{{ tqNotAnswered }}" hint-placeholder-val="{{ true }}">
+                  <div style="text-align:center;font-size:12px;color:#6B7280;padding:16px 0">Escolha uma alternativa para continuar</div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <div style="height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:120px;height:5px;border-radius:3px;background:#3A3E47"></div></div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;studentName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Marina&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;streakDays&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:12,&quot;min&quot;:0,&quot;max&quot;:999,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { flipA: false, idxA: 0, doneA: 8, flipB: false, idxB: 0, doneB: 12, tab: 'resumo', qIdx: 0, qSel: null,
+    simLen: 20, themeDisc: 'Psicologia', theme: 'Teorias da personalidade', tqCount: 10, themeScreen: 'setup', tqIdx: 0, tqSel: null };
+
+  cardsA = [
+    { q: 'Qual é a derivada de sen(x)?', a: 'cos(x)', why: 'Regra fundamental: d/dx[sen(x)] = cos(x).' },
+    { q: 'Qual é a derivada de ln(x)?', a: '1 / x', why: 'Para x > 0, d/dx[ln(x)] = 1/x.' },
+    { q: 'Enuncie a regra do produto.', a: "(f·g)' = f'g + fg'", why: 'Derivada do produto de duas funções deriváveis.' },
+  ];
+
+  cardsB = [
+    { q: 'Quais ossos formam o antebraço?', a: 'Rádio e ulna', hint: '"RU" — o Rádio acompanha o polegar; a Ulna fica do lado do dedo mínimo.' },
+    { q: 'Qual é o maior osso do corpo humano?', a: 'Fêmur', hint: 'O osso da coxa — suporta grande parte do peso corporal.' },
+    { q: 'Quantas vértebras tem a coluna cervical?', a: 'Sete (C1–C7)', hint: 'Mnemônico: "café às 7" — a cervical tem 7.' },
+  ];
+
+  quiz = [
+    { q: 'Qual é a derivada de f(x) = x³?', options: ['3x²', 'x²', '3x', 'x⁴/4'], correct: 0, exp: 'Regra do tombo: d/dx[xⁿ] = n·xⁿ⁻¹. Logo x³ vira 3·x² = 3x².' },
+    { q: 'Qual é a derivada de f(x) = 5x?', options: ['5', '5x', 'x', '0'], correct: 0, exp: 'A derivada de uma reta a·x é a inclinação constante a — neste caso, 5.' },
+    { q: 'Qual é a derivada da constante f(x) = 7?', options: ['0', '7', '1', 'x'], correct: 0, exp: 'Uma constante não varia, então sua taxa de variação (derivada) é sempre 0.' },
+  ];
+
+  themeQuiz = [
+    { q: 'Quem é o fundador da teoria psicanalítica da personalidade?', options: ['Sigmund Freud', 'B. F. Skinner', 'Carl Rogers', 'Albert Bandura'], correct: 0, exp: 'Freud fundou a psicanálise e dividiu a mente em id, ego e superego.' },
+    { q: 'Na teoria de Freud, qual instância busca a satisfação imediata?', options: ['Id', 'Ego', 'Superego', 'Persona'], correct: 0, exp: 'O id age pelo princípio do prazer, buscando gratificação imediata dos impulsos.' },
+    { q: 'Qual abordagem descreve a personalidade pelos "Big Five"?', options: ['Teoria dos traços', 'Behaviorismo', 'Psicanálise', 'Humanismo'], correct: 0, exp: 'A teoria dos traços mede a personalidade em dimensões, como os cinco grandes fatores.' },
+  ];
+
+  // helper: build interactive option list for a quiz question
+  buildOptions(question, sel, answered, pickFn) {
+    const letters = ['A', 'B', 'C', 'D'];
+    return question.options.map((text, i) => {
+      let row = 'display:flex;align-items:center;gap:13px;padding:15px;border-radius:16px;cursor:pointer;transition:all .18s;';
+      let circle = 'width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;';
+      if (!answered) { row += 'background:#1E2128;border:1px solid #2A2E37'; circle += 'background:#2A2E37;color:#9BA1A6'; }
+      else if (i === question.correct) { row += 'background:rgba(52,211,153,.14);border:1px solid #34D399'; circle += 'background:#34D399;color:#0F1115'; }
+      else if (i === sel) { row += 'background:rgba(248,113,113,.14);border:1px solid #F87171'; circle += 'background:#F87171;color:#0F1115'; }
+      else { row += 'background:#1E2128;border:1px solid #2A2E37;opacity:.45'; circle += 'background:#2A2E37;color:#9BA1A6'; }
+      return {
+        letter: letters[i], text, rowStyle: row, circleStyle: circle,
+        txtStyle: 'flex:1;font-size:15px;font-weight:600;color:#ECEDEE',
+        isCorrect: answered && i === question.correct,
+        isWrong: answered && i === sel && i !== question.correct,
+        onClick: () => pickFn(i),
+      };
+    });
+  }
+
+  renderVals() {
+    const name = this.props.studentName ?? 'Marina';
+    const streak = this.props.streakDays ?? 12;
+
+    const cA = this.cardsA[this.state.idxA % this.cardsA.length];
+    const cB = this.cardsB[this.state.idxB % this.cardsB.length];
+    const totalA = 24, totalB = 30;
+
+    // ----- Detalhe tabs -----
+    const tab = this.state.tab;
+    const tabStyle = (key) => {
+      const active = tab === key;
+      return 'flex:1;text-align:center;padding:13px 0;font-size:13px;font-weight:700;cursor:pointer;'
+        + 'border-bottom:2px solid ' + (active ? '#B6A8F2' : 'transparent') + ';'
+        + 'color:' + (active ? '#ECEDEE' : '#6B7280');
+    };
+
+    // ----- Quiz -----
+    const q = this.quiz[this.state.qIdx % this.quiz.length];
+    const sel = this.state.qSel;
+    const answered = sel !== null;
+    const letters = ['A', 'B', 'C', 'D'];
+    const qOptions = q.options.map((text, i) => {
+      let row = 'display:flex;align-items:center;gap:13px;padding:15px;border-radius:16px;cursor:pointer;transition:all .18s;';
+      let circle = 'width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;';
+      if (!answered) { row += 'background:#1E2128;border:1px solid #2A2E37'; circle += 'background:#2A2E37;color:#9BA1A6'; }
+      else if (i === q.correct) { row += 'background:rgba(52,211,153,.14);border:1px solid #34D399'; circle += 'background:#34D399;color:#0F1115'; }
+      else if (i === sel) { row += 'background:rgba(248,113,113,.14);border:1px solid #F87171'; circle += 'background:#F87171;color:#0F1115'; }
+      else { row += 'background:#1E2128;border:1px solid #2A2E37;opacity:.45'; circle += 'background:#2A2E37;color:#9BA1A6'; }
+      return {
+        letter: letters[i], text, rowStyle: row, circleStyle: circle,
+        txtStyle: 'flex:1;font-size:15px;font-weight:600;color:#ECEDEE',
+        isCorrect: answered && i === q.correct,
+        isWrong: answered && i === sel && i !== q.correct,
+        onClick: () => { if (this.state.qSel === null) this.setState({ qSel: i }); },
+      };
+    });
+    const qIsCorrect = answered && sel === q.correct;
+    const qLen = this.quiz.length;
+    const qNum = (this.state.qIdx % qLen) + 1;
+
+    // ----- Simulado -----
+    const simLen = this.state.simLen;
+    const simData = [
+      { n: 10, time: '~15 min' }, { n: 20, time: '~30 min' },
+      { n: 50, time: '~75 min' }, { n: 100, time: '~2h30' },
+    ];
+    const simOptions = simData.map(d => {
+      const active = simLen === d.n;
+      return {
+        n: d.n, time: d.time,
+        style: 'border-radius:18px;padding:16px;cursor:pointer;transition:all .18s;'
+          + (active ? 'background:rgba(139,124,246,.16);border:1.5px solid #8B7CF6' : 'background:#1E2128;border:1.5px solid #2A2E37'),
+        numStyle: 'font-size:26px;font-weight:800;letter-spacing:-1px;color:' + (active ? '#A78BFA' : '#ECEDEE'),
+        onClick: () => this.setState({ simLen: d.n }),
+      };
+    });
+    const simTimeMap = { 10: '15 min', 20: '30 min', 50: '75 min', 100: '2h30' };
+
+    // ----- Quiz por tema -----
+    const disciplinas = ['Psicologia', 'Biologia', 'Direito', 'História'];
+    const discChips = disciplinas.map(nm => {
+      const active = this.state.themeDisc === nm;
+      return {
+        name: nm,
+        style: 'padding:9px 15px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;'
+          + (active ? 'background:rgba(151,198,242,.16);border:1px solid #97C6F2;color:#97C6F2' : 'background:#1E2128;border:1px solid #2A2E37;color:#9BA1A6'),
+        onClick: () => this.setState({ themeDisc: nm }),
+      };
+    });
+    const countOptions = [5, 10, 20].map(n => {
+      const active = this.state.tqCount === n;
+      return {
+        n,
+        style: 'flex:1;text-align:center;padding:13px 0;border-radius:13px;font-size:15px;font-weight:700;cursor:pointer;transition:all .18s;'
+          + (active ? 'background:rgba(151,198,242,.16);border:1px solid #97C6F2;color:#97C6F2' : 'background:#1E2128;border:1px solid #2A2E37;color:#9BA1A6'),
+        onClick: () => this.setState({ tqCount: n }),
+      };
+    });
+    const tq = this.themeQuiz[this.state.tqIdx % this.themeQuiz.length];
+    const tqSel = this.state.tqSel;
+    const tqAnswered = tqSel !== null;
+    const tqLetters = ['A', 'B', 'C', 'D'];
+    const tqOptions = this.buildOptions(tq, tqSel, tqAnswered, (i) => { if (this.state.tqSel === null) this.setState({ tqSel: i }); });
+    const tqIsCorrect = tqAnswered && tqSel === tq.correct;
+    const tqNum = (this.state.tqIdx % this.themeQuiz.length) + 1;
+
+    return {
+      name, streak,
+      // Flashcard A
+      flipA: this.state.flipA,
+      notFlipA: !this.state.flipA,
+      transformA: this.state.flipA ? 'rotateY(180deg)' : 'rotateY(0deg)',
+      frontA: cA.q, backA: cA.a, whyA: cA.why,
+      doneA: this.state.doneA, totalA,
+      pctA: Math.round((this.state.doneA / totalA) * 100) + '%',
+      onFlipA: () => this.setState(s => ({ flipA: !s.flipA })),
+      onRateA: () => this.setState(s => ({ flipA: false, idxA: s.idxA + 1, doneA: Math.min(s.doneA + 1, totalA) })),
+      // Flashcard B
+      flipB: this.state.flipB,
+      transformB: this.state.flipB ? 'rotateY(180deg)' : 'rotateY(0deg)',
+      frontB: cB.q, backB: cB.a, hintB: cB.hint,
+      doneB: this.state.doneB, totalB,
+      pctB: Math.round((this.state.doneB / totalB) * 100) + '%',
+      onFlipB: () => this.setState(s => ({ flipB: !s.flipB })),
+      onRateB: () => this.setState(s => ({ flipB: false, idxB: s.idxB + 1, doneB: Math.min(s.doneB + 1, totalB) })),
+      // Detalhe tabs
+      isResumo: tab === 'resumo', isFlash: tab === 'flash', isQuizTab: tab === 'quiz', isMapa: tab === 'mapa',
+      tsResumo: tabStyle('resumo'), tsFlash: tabStyle('flash'), tsQuiz: tabStyle('quiz'), tsMapa: tabStyle('mapa'),
+      setResumo: () => this.setState({ tab: 'resumo' }),
+      setFlash: () => this.setState({ tab: 'flash' }),
+      setQuiz: () => this.setState({ tab: 'quiz' }),
+      setMapa: () => this.setState({ tab: 'mapa' }),
+      // Quiz
+      qText: q.q, qOptions, qNum, qTotal: qLen,
+      qPct: Math.round((qNum / qLen) * 100) + '%',
+      qAnswered: answered, qNotAnswered: !answered, qExp: q.exp,
+      qExpStyle: 'border-radius:18px;padding:16px;margin-top:18px;background:'
+        + (qIsCorrect ? 'rgba(52,211,153,.1)' : 'rgba(248,113,113,.1)')
+        + ';border:1px solid ' + (qIsCorrect ? 'rgba(52,211,153,.4)' : 'rgba(248,113,113,.4)'),
+      qResultText: qIsCorrect ? 'Correto! +10 XP' : 'Resposta: ' + (letters[q.correct]) + ') ' + q.options[q.correct],
+      qResultStyle: 'font-size:14px;font-weight:800;color:' + (qIsCorrect ? '#34D399' : '#F87171'),
+      onNextQ: () => this.setState(s => ({ qIdx: s.qIdx + 1, qSel: null })),
+      // Simulado
+      simOptions, simCta: 'INICIAR SIMULADO · ' + simLen, simTime: simTimeMap[simLen],
+      // Quiz por tema
+      isThemeSetup: this.state.themeScreen === 'setup',
+      isThemeQuiz: this.state.themeScreen === 'quiz',
+      theme: this.state.theme, themeDisc: this.state.themeDisc,
+      discChips, countOptions,
+      onThemeInput: (e) => this.setState({ theme: e.target.value }),
+      onGenerate: () => this.setState({ themeScreen: 'quiz', tqIdx: 0, tqSel: null }),
+      onBackTheme: () => this.setState({ themeScreen: 'setup' }),
+      tqText: tq.q, tqOptions, tqNum, tqTotal: this.themeQuiz.length,
+      tqPct: Math.round((tqNum / this.themeQuiz.length) * 100) + '%',
+      tqAnswered, tqNotAnswered: !tqAnswered, tqExp: tq.exp,
+      tqExpStyle: 'border-radius:18px;padding:16px;margin-top:18px;background:'
+        + (tqIsCorrect ? 'rgba(52,211,153,.1)' : 'rgba(248,113,113,.1)')
+        + ';border:1px solid ' + (tqIsCorrect ? 'rgba(52,211,153,.4)' : 'rgba(248,113,113,.4)'),
+      tqResultText: tqIsCorrect ? 'Correto! +10 XP' : 'Resposta: ' + tqLetters[tq.correct] + ') ' + tq.options[tq.correct],
+      tqResultStyle: 'font-size:14px;font-weight:800;color:' + (tqIsCorrect ? '#34D399' : '#F87171'),
+      onNextTQ: () => this.setState(s => ({ tqIdx: s.tqIdx + 1, tqSel: null })),
+    };
+  }
+}
+</script>
+</body>
+</html>
