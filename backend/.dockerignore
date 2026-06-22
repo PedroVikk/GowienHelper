@@ -1,0 +1,17 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+*.db
+*.sqlite3
+gowien.db
+runtime.json
+server.log
+storage/
+chroma/
+.env
+tests/
+.git/

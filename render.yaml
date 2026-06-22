@@ -1,0 +1,25 @@
+# Blueprint do Render — cria o serviço web do backend GowienHelper.
+# A IA na nuvem usa Gemini (não há Ollama no servidor).
+# Segredos (GEMINI_API_KEY, DATABASE_URL) são definidos no painel, não aqui.
+services:
+  - type: web
+    name: gowienhelper-api
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: AI_PROVIDER
+        value: gemini
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "10080"
+      - key: SECRET_KEY
+        generateValue: true        # Render gera uma chave forte sozinho
+      - key: GEMINI_API_KEY
+        sync: false                # você cola no painel (segredo)
+      - key: DATABASE_URL
+        sync: false                # você cola a URL do Neon (Postgres grátis)

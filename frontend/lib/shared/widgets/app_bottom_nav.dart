@@ -23,18 +23,24 @@ class AppBottomNav extends StatelessWidget {
         color: Gw.bgElevated,
         border: Border(top: BorderSide(color: Gw.borderSubtle)),
       ),
-      padding: EdgeInsets.only(
-        top: 8,
-        bottom: 8 + MediaQuery.of(context).padding.bottom,
-      ),
-      child: Row(
-        children: [
-          _item(0, Icons.home_rounded, 'Início'),
-          _item(1, Icons.menu_book_rounded, 'Disciplinas'),
-          _fab(),
-          _item(2, Icons.bar_chart_rounded, 'Stats'),
-          _item(3, Icons.person_rounded, 'Perfil'),
-        ],
+      // SafeArea cuida do inset inferior (gesture bar). O SizedBox com altura
+      // fixa é essencial: como bottomNavigationBar o Scaffold passa restrições
+      // de altura frouxas, e sem limite o Center do FAB esticaria a barra até a
+      // tela inteira (empurrando os ícones pro meio e zerando o corpo).
+      child: SafeArea(
+        top: false,
+        child: SizedBox(
+          height: 64,
+          child: Row(
+            children: [
+              _item(0, Icons.home_rounded, 'Início'),
+              _item(1, Icons.menu_book_rounded, 'Disciplinas'),
+              _fab(),
+              _item(2, Icons.bar_chart_rounded, 'Stats'),
+              _item(3, Icons.person_rounded, 'Perfil'),
+            ],
+          ),
+        ),
       ),
     );
   }

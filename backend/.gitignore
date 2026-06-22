@@ -9,3 +9,7 @@ storage/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+
+# Estado de runtime e logs (locais)
+runtime.json
+*.log

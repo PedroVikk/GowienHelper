@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/api/api_client.dart';
 import '../../core/theme/tokens.dart';
-import '../../data/mock_data.dart';
+import '../../data/repositories.dart';
 import '../../shared/widgets/common.dart';
 import '../quiz/quiz_player.dart';
 
-const _accent = Gw.psicologia; // azul-céu (disciplina selecionada)
+const _accent = Gw.psicologia;
+const _difficulties = {'Fácil': 'easy', 'Médio': 'medium', 'Difícil': 'hard'};
 
-/// Tela 7 — Quiz por tema ⭐ (setup -> quiz, escopo travado no tema).
-class ThemedQuizScreen extends StatefulWidget {
+/// Tela 7 — Quiz por tema: gera questões travadas em um tema (POST .../quiz/themed).
+class ThemedQuizScreen extends ConsumerStatefulWidget {
   const ThemedQuizScreen({super.key});
 
   @override
-  State<ThemedQuizScreen> createState() => _ThemedQuizScreenState();
+  ConsumerState<ThemedQuizScreen> createState() => _ThemedQuizScreenState();
 }
 
-class _ThemedQuizScreenState extends State<ThemedQuizScreen> {
-  bool _generated = false;
+class _ThemedQuizScreenState extends ConsumerState<ThemedQuizScreen> {
   final _theme = TextEditingController();
-  String _discipline = 'Psicologia';
+  int? _subjectId;
   int _count = 10;
   String _difficulty = 'Médio';
-
-  String get _themeLabel =>
-      _theme.text.trim().isEmpty ? 'Teorias da personalidade' : _theme.text.trim();
+  bool _loading = false;
 
   @override
   void dispose() {
@@ -32,102 +32,153 @@ class _ThemedQuizScreenState extends State<ThemedQuizScreen> {
     super.dispose();
   }
 
+  Future<void> _generate() async {
+    final theme = _theme.text.trim();
+    if (_subjectId == null || theme.isEmpty) {
+      _snack('Escolha a disciplina e digite o tema.');
+      return;
+    }
+    setState(() => _loading = true);
+    try {
+      final questions =
+          await ref.read(generationRepositoryProvider).themedQuiz(
+                _subjectId!,
+                theme: theme,
+                count: _count,
+                difficulty: _difficulties[_difficulty]!,
+              );
+      if (!mounted) return;
+      if (questions.isEmpty) {
+        _snack('A IA não retornou questões. Tente outro tema.');
+        return;
+      }
+      context.push('/quiz-player',
+          extra: QuizArgs(
+            title: theme,
+            questions: questions,
+            accent: _accent,
+          ));
+    } on ApiException catch (e) {
+      _snack(e.message);
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  void _snack(String m) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(m),
+        backgroundColor: Gw.card,
+        behavior: SnackBarBehavior.floating));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final subjects = ref.watch(subjectsListProvider);
     return Scaffold(
       body: SafeArea(
-        child: _generated ? _quizState(context) : _setupState(context),
+        child: Column(
+          children: [
+            _header(context),
+            Expanded(
+              child: ListView(
+                padding:
+                    const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, Gw.s16),
+                children: [
+                  const Overline('Disciplina'),
+                  const SizedBox(height: Gw.s12),
+                  subjects.when(
+                    loading: () => const Center(
+                        child: CircularProgressIndicator(color: Gw.primary)),
+                    error: (e, _) => Text('Erro: $e',
+                        style: const TextStyle(color: Gw.textHi)),
+                    data: (list) => list.isEmpty
+                        ? const Text('Crie uma disciplina primeiro.',
+                            style: TextStyle(fontSize: 13, color: Gw.textLo))
+                        : Wrap(
+                            spacing: Gw.s8,
+                            runSpacing: Gw.s8,
+                            children: list
+                                .map((s) => GwChip(
+                                      label: s.name,
+                                      selected: _subjectId == s.id,
+                                      accent: _accent,
+                                      onTap: () =>
+                                          setState(() => _subjectId = s.id),
+                                    ))
+                                .toList(),
+                          ),
+                  ),
+                  const SizedBox(height: Gw.s24),
+                  const Overline('Tema'),
+                  const SizedBox(height: Gw.s12),
+                  _themeField(),
+                  const SizedBox(height: Gw.s12),
+                  _lockNotice(),
+                  const SizedBox(height: Gw.s24),
+                  const Overline('Nº de questões'),
+                  const SizedBox(height: Gw.s12),
+                  _segment([5, 10, 20]),
+                  const SizedBox(height: Gw.s24),
+                  const Overline('Dificuldade'),
+                  const SizedBox(height: Gw.s12),
+                  Wrap(
+                    spacing: Gw.s8,
+                    children: _difficulties.keys
+                        .map((d) => GwChip(
+                              label: d,
+                              selected: _difficulty == d,
+                              accent: _accent,
+                              onTap: () => setState(() => _difficulty = d),
+                            ))
+                        .toList(),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, Gw.s16),
+              child: GlowButton(
+                label: _loading ? 'Gerando com IA...' : 'Gerar quiz',
+                icon: Icons.auto_awesome_rounded,
+                gradient: const LinearGradient(colors: [_accent, Gw.accent]),
+                glowColor: _accent,
+                onTap: _loading ? null : _generate,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  // ---------------------------------------------------------------- SETUP
-  Widget _setupState(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(Gw.s8, Gw.s8, Gw.s18, 0),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () => context.pop(),
-                icon: const Icon(Icons.arrow_back_rounded, color: Gw.textHi),
-              ),
-              const Expanded(
-                child: Text('Novo quiz por tema',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                        color: Gw.textHi)),
-              ),
-              const SizedBox(width: 44),
-            ],
+  Widget _header(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(Gw.s8, Gw.s8, Gw.s18, 0),
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () => context.pop(),
+            icon: const Icon(Icons.arrow_back_rounded, color: Gw.textHi),
           ),
-        ),
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, Gw.s16),
-            children: [
-              const Overline('Disciplina'),
-              const SizedBox(height: Gw.s12),
-              Wrap(
-                spacing: Gw.s8,
-                runSpacing: Gw.s8,
-                children: ['Psicologia', 'Cálculo I', 'Anatomia', 'Algoritmos']
-                    .map((d) => GwChip(
-                          label: d,
-                          selected: _discipline == d,
-                          accent: _accent,
-                          onTap: () => setState(() => _discipline = d),
-                        ))
-                    .toList(),
-              ),
-              const SizedBox(height: Gw.s24),
-              const Overline('Tema'),
-              const SizedBox(height: Gw.s12),
-              _themeField(),
-              const SizedBox(height: Gw.s12),
-              _lockNotice(),
-              const SizedBox(height: Gw.s24),
-              const Overline('Nº de questões'),
-              const SizedBox(height: Gw.s12),
-              _segment([5, 10, 20]),
-              const SizedBox(height: Gw.s24),
-              const Overline('Dificuldade'),
-              const SizedBox(height: Gw.s12),
-              Wrap(
-                spacing: Gw.s8,
-                children: ['Fácil', 'Médio', 'Difícil']
-                    .map((d) => GwChip(
-                          label: d,
-                          selected: _difficulty == d,
-                          accent: _accent,
-                          onTap: () => setState(() => _difficulty = d),
-                        ))
-                    .toList(),
-              ),
-            ],
+          const Expanded(
+            child: Text('Novo quiz por tema',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Gw.textHi)),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, Gw.s16),
-          child: GlowButton(
-            label: 'Gerar quiz',
-            icon: Icons.auto_awesome_rounded,
-            gradient: const LinearGradient(colors: [_accent, Gw.accent]),
-            glowColor: _accent,
-            onTap: () => setState(() => _generated = true),
-          ),
-        ),
-      ],
+          const SizedBox(width: 44),
+        ],
+      ),
     );
   }
 
   Widget _themeField() {
     return TextField(
       controller: _theme,
-      onChanged: (_) => setState(() {}),
       style: const TextStyle(color: Gw.textHi, fontSize: 15),
       cursorColor: _accent,
       decoration: InputDecoration(
@@ -157,23 +208,14 @@ class _ThemedQuizScreenState extends State<ThemedQuizScreen> {
         borderRadius: BorderRadius.circular(Gw.rChip),
         border: Border.all(color: Gw.success.withValues(alpha: 0.25)),
       ),
-      child: Row(
+      child: const Row(
         children: [
-          const Icon(Icons.lock_rounded, color: Gw.success, size: 18),
-          const SizedBox(width: 10),
+          Icon(Icons.lock_rounded, color: Gw.success, size: 18),
+          SizedBox(width: 10),
           Expanded(
-            child: RichText(
-              text: const TextSpan(
-                style: TextStyle(fontSize: 13, height: 1.4, color: Gw.textMid),
-                children: [
-                  TextSpan(text: 'As perguntas ficam '),
-                  TextSpan(
-                      text: 'presas a este tema',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700, color: Gw.textHi)),
-                  TextSpan(text: ' — sem fugir do assunto.'),
-                ],
-              ),
+            child: Text(
+              'As perguntas ficam presas a este tema — usa o material se houver, senão o conhecimento geral da IA.',
+              style: TextStyle(fontSize: 13, height: 1.4, color: Gw.textMid),
             ),
           ),
         ],
@@ -214,57 +256,6 @@ class _ThemedQuizScreenState extends State<ThemedQuizScreen> {
           );
         }).toList(),
       ),
-    );
-  }
-
-  // ----------------------------------------------------------------- QUIZ
-  Widget _quizState(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(Gw.s8, Gw.s8, Gw.s18, Gw.s8),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () => setState(() => _generated = false),
-                icon: const Icon(Icons.arrow_back_rounded, color: Gw.textHi),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(_discipline,
-                        style: const TextStyle(
-                            fontSize: 12, color: Gw.textLo)),
-                    const SizedBox(height: 2),
-                    Row(
-                      children: [
-                        const Icon(Icons.lock_rounded,
-                            color: Gw.success, size: 15),
-                        const SizedBox(width: 5),
-                        Flexible(
-                          child: Text(_themeLabel,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Gw.textHi)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Expanded(
-          child: QuizPlayer(
-            questions: MockData.themedQuestions,
-            accent: _accent,
-          ),
-        ),
-      ],
     );
   }
 }
