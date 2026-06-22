@@ -24,13 +24,16 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg2://gowien:gowien@localhost:5432/gowien"
 
     # AI Provider
-    ai_provider: str = "ollama"
+    ai_provider: str = "ollama"  # provedor padrão na 1ª subida (ollama | gemini)
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "qwen3:8b"
     ollama_embed_model: str = "nomic-embed-text"
     openai_api_key: str = ""
     anthropic_api_key: str = ""
     gemini_api_key: str = ""
+    gemini_model: str = "gemini-2.5-flash"
+    gemini_embed_model: str = "text-embedding-004"
+    gemini_daily_limit: int = 250  # cota grátis aprox./dia 2.5-flash (p/ o aviso)
 
     # Vector store
     chroma_host: str = "localhost"

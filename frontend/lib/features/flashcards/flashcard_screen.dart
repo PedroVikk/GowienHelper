@@ -1,36 +1,128 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/theme/tokens.dart';
-import '../../data/mock_data.dart';
+import '../../data/models.dart';
+import '../../data/repositories.dart';
 import '../../shared/widgets/common.dart';
 
-/// Tela 2 — Flashcard (Opção B: pilha + flip + swipe + dica mnemônica).
-class FlashcardScreen extends StatefulWidget {
-  const FlashcardScreen({super.key});
+/// Tela 2 — Revisão de flashcards (dados reais do backend, SM-2).
+/// Sem [subjectId] mostra um seletor de disciplina.
+class FlashcardScreen extends ConsumerStatefulWidget {
+  final int? subjectId;
+  const FlashcardScreen({super.key, this.subjectId});
 
   @override
-  State<FlashcardScreen> createState() => _FlashcardScreenState();
+  ConsumerState<FlashcardScreen> createState() => _FlashcardScreenState();
 }
 
-class _FlashcardScreenState extends State<FlashcardScreen>
+class _FlashcardScreenState extends ConsumerState<FlashcardScreen> {
+  int? _subjectId;
+
+  @override
+  void initState() {
+    super.initState();
+    _subjectId = widget.subjectId;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_subjectId == null) return _SubjectPicker(onPick: (id) => setState(() => _subjectId = id));
+    return _ReviewView(subjectId: _subjectId!);
+  }
+}
+
+/// Seleciona qual disciplina revisar (quando aberto pelo botão central).
+class _SubjectPicker extends ConsumerWidget {
+  final void Function(int) onPick;
+  const _SubjectPicker({required this.onPick});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final subjects = ref.watch(subjectsListProvider);
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            _Header(title: 'Revisar', onBack: () => context.pop()),
+            Expanded(
+              child: subjects.when(
+                loading: () =>
+                    const Center(child: CircularProgressIndicator(color: Gw.primary)),
+                error: (e, _) => Center(
+                    child: Text('Erro: $e',
+                        style: const TextStyle(color: Gw.textHi))),
+                data: (list) => list.isEmpty
+                    ? const Center(
+                        child: Text('Crie uma disciplina primeiro.',
+                            style: TextStyle(color: Gw.textLo)))
+                    : ListView(
+                        padding: const EdgeInsets.fromLTRB(
+                            Gw.s18, Gw.s8, Gw.s18, Gw.s24),
+                        children: [
+                          const Overline('Escolha a disciplina'),
+                          const SizedBox(height: Gw.s12),
+                          ...list.map((s) => Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: Gw.s12),
+                                child: GwCard(
+                                  padding: const EdgeInsets.all(14),
+                                  radius: Gw.rCard,
+                                  child: InkWell(
+                                    onTap: () => onPick(s.id),
+                                    child: Row(
+                                      children: [
+                                        Icon(s.icon, color: s.color, size: 22),
+                                        const SizedBox(width: Gw.s12),
+                                        Expanded(
+                                          child: Text(s.name,
+                                              style: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Gw.textHi)),
+                                        ),
+                                        const Icon(Icons.chevron_right_rounded,
+                                            color: Gw.textDim),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Pilha de cartões com flip + swipe, alimentada pela API.
+class _ReviewView extends ConsumerStatefulWidget {
+  final int subjectId;
+  const _ReviewView({required this.subjectId});
+
+  @override
+  ConsumerState<_ReviewView> createState() => _ReviewViewState();
+}
+
+class _ReviewViewState extends ConsumerState<_ReviewView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _flip;
   int _idx = 0;
-  int _done = 12; // dominados
+  int _remembered = 0;
   double _dragDx = 0;
-
-  static const _total = 30;
 
   @override
   void initState() {
     super.initState();
     _flip = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 550),
-    );
+        vsync: this, duration: const Duration(milliseconds: 500));
   }
 
   @override
@@ -39,16 +131,19 @@ class _FlashcardScreenState extends State<FlashcardScreen>
     super.dispose();
   }
 
-  FlashcardData get _card => MockData.flashcards[_idx % MockData.flashcards.length];
-
   void _toggleFlip() {
     if (_flip.isAnimating) return;
     _flip.value < 0.5 ? _flip.forward() : _flip.reverse();
   }
 
-  void _classify({required bool remembered}) {
+  Future<void> _classify(Flashcard card, {required bool remembered}) async {
+    // SM-2: lembrou bem = 5, não lembrou = 2.
+    ref
+        .read(flashcardsRepositoryProvider)
+        .review(card.id, remembered ? 5 : 2)
+        .catchError((_) {});
     setState(() {
-      if (remembered && _done < _total) _done++;
+      if (remembered) _remembered++;
       _idx++;
       _dragDx = 0;
       _flip.value = 0;
@@ -57,90 +152,64 @@ class _FlashcardScreenState extends State<FlashcardScreen>
 
   @override
   Widget build(BuildContext context) {
+    final cardsAsync = ref.watch(flashcardsProvider(widget.subjectId));
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            _topBar(context),
-            _progress(),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Gw.s18, vertical: Gw.s16),
-                child: _cardStack(),
-              ),
-            ),
-            _controls(),
-          ],
+        child: cardsAsync.when(
+          loading: () =>
+              const Center(child: CircularProgressIndicator(color: Gw.primary)),
+          error: (e, _) => _ErrorState(message: '$e'),
+          data: (cards) {
+            if (cards.isEmpty) return _EmptyState(onBack: () => context.pop());
+            if (_idx >= cards.length) {
+              return _DoneState(
+                total: cards.length,
+                remembered: _remembered,
+                onRestart: () => setState(() {
+                  _idx = 0;
+                  _remembered = 0;
+                }),
+                onExit: () => context.pop(),
+              );
+            }
+            final card = cards[_idx];
+            return Column(
+              children: [
+                _Header(
+                  title: '${_idx + 1} / ${cards.length}',
+                  onBack: () => context.pop(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, 0),
+                  child: GwProgressBar(
+                    value: (_idx) / cards.length,
+                    gradient: Gw.gradGreen,
+                    glowColor: Gw.success,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Gw.s18, vertical: Gw.s16),
+                    child: _cardStack(card),
+                  ),
+                ),
+                _controls(card),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _topBar(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(Gw.s12, Gw.s8, Gw.s18, 0),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () => context.pop(),
-            icon: const Icon(Icons.arrow_back_rounded, color: Gw.textHi),
-          ),
-          const Expanded(
-            child: Text('Cálculo I',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Gw.textHi)),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(
-              color: Gw.streak.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(Gw.rPill),
-            ),
-            child: const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.local_fire_department_rounded,
-                    color: Gw.streak, size: 16),
-                SizedBox(width: 4),
-                Text('${MockData.streakDays}',
-                    style: TextStyle(
-                        color: Gw.streak,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _progress() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('$_done/$_total dominados',
-              style: const TextStyle(fontSize: 12, color: Gw.textLo)),
-          const SizedBox(height: 8),
-          GwProgressBar(value: _done / _total, gradient: Gw.gradGreen, glowColor: Gw.success),
-        ],
-      ),
-    );
-  }
-
-  Widget _cardStack() {
+  Widget _cardStack(Flashcard card) {
     return GestureDetector(
       onTap: _toggleFlip,
       onHorizontalDragUpdate: (d) => setState(() => _dragDx += d.delta.dx),
       onHorizontalDragEnd: (d) {
         if (_dragDx.abs() > 90) {
-          _classify(remembered: _dragDx > 0);
+          _classify(card, remembered: _dragDx > 0);
         } else {
           setState(() => _dragDx = 0);
         }
@@ -168,9 +237,10 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                         ? Transform(
                             alignment: Alignment.center,
                             transform: Matrix4.identity()..rotateY(math.pi),
-                            child: _backFace(),
+                            child: _face('Resposta', card.back, Gw.success),
                           )
-                        : _frontFace(),
+                        : _face('Pergunta', card.front, Gw.anatomia,
+                            hint: true),
                   );
                 },
               ),
@@ -198,7 +268,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
     );
   }
 
-  Widget _face({required Widget child}) {
+  Widget _face(String label, String text, Color accent, {bool hint = false}) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(Gw.s24),
@@ -208,108 +278,30 @@ class _FlashcardScreenState extends State<FlashcardScreen>
         border: Border.all(color: Gw.border),
         boxShadow: Gw.cardShadow,
       ),
-      child: child,
-    );
-  }
-
-  Widget _frontFace() {
-    final c = _card;
-    return _face(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Overline('Pergunta', color: Gw.anatomia),
-              _masteryDots(c.mastery),
-            ],
-          ),
+          Overline(label, color: accent),
           const SizedBox(height: Gw.s24),
-          Text(c.question,
+          Text(text,
               style: const TextStyle(
-                  fontSize: 25,
+                  fontSize: 24,
                   fontWeight: FontWeight.w700,
-                  height: 1.25,
+                  height: 1.3,
                   color: Gw.textHi)),
           const SizedBox(height: Gw.s24),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
-              color: Gw.anatomia.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(Gw.rChip),
+          if (hint)
+            const Center(
+              child: Text('Toque para virar',
+                  style: TextStyle(fontSize: 12, color: Gw.textDim)),
             ),
-            child: Row(
-              children: [
-                const Icon(Icons.lightbulb_outline_rounded,
-                    color: Gw.anatomia, size: 16),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(c.hint,
-                      style: const TextStyle(
-                          fontSize: 13, color: Gw.textMid)),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: Gw.s16),
-          const Center(
-            child: Text('Toque para virar',
-                style: TextStyle(fontSize: 12, color: Gw.textDim)),
-          ),
         ],
       ),
     );
   }
 
-  Widget _backFace() {
-    final c = _card;
-    return _face(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Overline('Resposta', color: Gw.success),
-          const SizedBox(height: Gw.s24),
-          Text(c.answer,
-              style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                  height: 1.2,
-                  color: Gw.textHi)),
-          const SizedBox(height: Gw.s24),
-          Container(
-            padding: const EdgeInsets.only(left: 12),
-            decoration: const BoxDecoration(
-              border: Border(left: BorderSide(color: Gw.anatomia, width: 2)),
-            ),
-            child: Text(c.mnemonic,
-                style: const TextStyle(
-                    fontSize: 14, height: 1.5, color: Gw.textMid)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _masteryDots(int filled) {
-    return Row(
-      children: List.generate(5, (i) {
-        return Container(
-          width: 8,
-          height: 8,
-          margin: const EdgeInsets.only(left: 5),
-          decoration: BoxDecoration(
-            color: i < filled ? Gw.anatomia : Gw.border,
-            shape: BoxShape.circle,
-          ),
-        );
-      }),
-    );
-  }
-
-  Widget _controls() {
+  Widget _controls(Flashcard card) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(Gw.s18, 0, Gw.s18, Gw.s16),
       child: Column(
@@ -318,32 +310,157 @@ class _FlashcardScreenState extends State<FlashcardScreen>
             children: [
               Expanded(
                 child: GlowButton(
-                  label: 'Revisar',
-                  icon: Icons.arrow_back_rounded,
+                  label: 'Não lembrei',
+                  icon: Icons.refresh_rounded,
                   gradient: const LinearGradient(
                       colors: [Gw.error, Color(0xFFE0555A)]),
                   glowColor: Gw.error,
-                  foreground: Gw.bg,
-                  onTap: () => _classify(remembered: false),
+                  onTap: () => _classify(card, remembered: false),
                 ),
               ),
               const SizedBox(width: Gw.s12),
               Expanded(
                 child: GlowButton(
                   label: 'Lembrei',
-                  icon: Icons.arrow_forward_rounded,
+                  icon: Icons.check_rounded,
                   gradient: Gw.gradGreen,
                   glowColor: Gw.success,
-                  onTap: () => _classify(remembered: true),
+                  onTap: () => _classify(card, remembered: true),
                 ),
               ),
             ],
           ),
           const SizedBox(height: Gw.s12),
-          const Text('Arraste ← revisar depois · → já lembro',
+          const Text('Arraste ← não lembrei · → lembrei',
               style: TextStyle(fontSize: 12, color: Gw.textDim)),
         ],
       ),
     );
   }
+}
+
+class _Header extends StatelessWidget {
+  final String title;
+  final VoidCallback onBack;
+  const _Header({required this.title, required this.onBack});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(Gw.s12, Gw.s8, Gw.s18, 0),
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: onBack,
+            icon: const Icon(Icons.arrow_back_rounded, color: Gw.textHi),
+          ),
+          Expanded(
+            child: Text(title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Gw.textHi)),
+          ),
+          const SizedBox(width: 44),
+        ],
+      ),
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  final VoidCallback onBack;
+  const _EmptyState({required this.onBack});
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          _Header(title: 'Revisar', onBack: onBack),
+          const Expanded(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(Gw.s24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.style_rounded, color: Gw.textDim, size: 36),
+                    SizedBox(height: 12),
+                    Text('Nenhum flashcard ainda',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Gw.textHi)),
+                    SizedBox(height: 4),
+                    Text('Gere flashcards no estúdio da disciplina (com IA).',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 13, color: Gw.textLo)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+}
+
+class _DoneState extends StatelessWidget {
+  final int total;
+  final int remembered;
+  final VoidCallback onRestart;
+  final VoidCallback onExit;
+  const _DoneState({
+    required this.total,
+    required this.remembered,
+    required this.onRestart,
+    required this.onExit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(Gw.s24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.celebration_rounded, color: Gw.success, size: 48),
+            const SizedBox(height: Gw.s16),
+            const Text('Revisão concluída!',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: Gw.textHi)),
+            const SizedBox(height: 6),
+            Text('Você lembrou de $remembered de $total cartões.',
+                style: const TextStyle(fontSize: 14, color: Gw.textLo)),
+            const SizedBox(height: Gw.s24),
+            GlowButton(
+                label: 'Revisar de novo',
+                icon: Icons.replay_rounded,
+                onTap: onRestart),
+            const SizedBox(height: Gw.s12),
+            GestureDetector(
+              onTap: onExit,
+              child: const Text('Voltar',
+                  style: TextStyle(color: Gw.textLo, fontSize: 14)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ErrorState extends StatelessWidget {
+  final String message;
+  const _ErrorState({required this.message});
+  @override
+  Widget build(BuildContext context) => Center(
+        child: Padding(
+          padding: const EdgeInsets.all(Gw.s24),
+          child: Text('Não foi possível carregar: $message',
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Gw.textHi, fontSize: 14)),
+        ),
+      );
 }

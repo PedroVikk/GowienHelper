@@ -1,0 +1,17 @@
+# Dependências enxutas para deploy na nuvem (IA = Gemini, sem Ollama/RAG/OCR).
+# chromadb, pytesseract e pillow são omitidos de propósito: os imports são
+# lazy e esses caminhos (RAG/OCR) não são usados no fluxo atual.
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+pydantic[email]==2.10.4
+pydantic-settings==2.7.0
+python-jose[cryptography]==3.3.0
+bcrypt==4.2.1
+python-multipart==0.0.20
+httpx==0.28.1
+pypdf==5.1.0
+python-docx==1.1.2
+markdown==3.7
+loguru==0.7.3

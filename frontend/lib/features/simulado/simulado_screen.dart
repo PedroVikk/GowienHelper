@@ -1,54 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/api/api_client.dart';
 import '../../core/theme/tokens.dart';
-import '../../data/mock_data.dart';
+import '../../data/repositories.dart';
 import '../../shared/widgets/common.dart';
+import '../quiz/quiz_player.dart';
 
-/// Tela 5 — Simulado (configurar e iniciar simulado cronometrado).
-class SimuladoScreen extends StatefulWidget {
+/// Tela 5 — Simulado: escolhe quantidade e disciplinas e monta um simulado
+/// misturando questões já geradas (POST /simulados).
+class SimuladoScreen extends ConsumerStatefulWidget {
   const SimuladoScreen({super.key});
 
   @override
-  State<SimuladoScreen> createState() => _SimuladoScreenState();
+  ConsumerState<SimuladoScreen> createState() => _SimuladoScreenState();
 }
 
-class _SimuladoScreenState extends State<SimuladoScreen> {
+class _SimuladoScreenState extends ConsumerState<SimuladoScreen> {
   int _len = 20;
-  bool _timer = true;
+  final Set<int> _selected = {};
+  bool _loading = false;
 
   static const _sizes = {10: '~15 min', 20: '~30 min', 50: '~75 min', 100: '~150 min'};
 
+  Future<void> _start(List<int> allIds) async {
+    setState(() => _loading = true);
+    try {
+      final ids = _selected.isEmpty ? allIds : _selected.toList();
+      final questions =
+          await ref.read(studyRepositoryProvider).simulado(_len, ids);
+      if (!mounted) return;
+      if (questions.isEmpty) {
+        _snack(
+            'Nenhuma questão disponível. Gere quizzes nas disciplinas primeiro.');
+        return;
+      }
+      context.push('/quiz-player',
+          extra: QuizArgs(
+            title: 'Simulado · ${questions.length}q',
+            questions: questions,
+            accent: Gw.primary,
+            submit: true,
+          ));
+    } on ApiException catch (e) {
+      _snack(e.message);
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  void _snack(String m) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(m),
+        backgroundColor: Gw.card,
+        behavior: SnackBarBehavior.floating));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final subjects = ref.watch(subjectsListProvider);
+    final allIds = subjects.valueOrNull?.map((s) => s.id).toList() ?? const [];
     return Scaffold(
       body: SafeArea(
         bottom: false,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(Gw.s8, Gw.s8, Gw.s18, 0),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () => context.pop(),
-                    icon: const Icon(Icons.arrow_back_rounded, color: Gw.textHi),
-                  ),
-                  const Expanded(
-                    child: Text('Simulado',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                            color: Gw.textHi)),
-                  ),
-                  const SizedBox(width: 44),
-                ],
-              ),
-            ),
+            _header(context),
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, Gw.s16),
+                padding:
+                    const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, Gw.s16),
                 children: [
                   const Overline('Quantidade de questões'),
                   const SizedBox(height: Gw.s12),
@@ -64,44 +87,77 @@ class _SimuladoScreenState extends State<SimuladoScreen> {
                         .toList(),
                   ),
                   const SizedBox(height: Gw.s24),
-                  _timerRow(),
-                  const SizedBox(height: Gw.s24),
                   const Overline('Disciplinas incluídas'),
+                  const SizedBox(height: Gw.s4),
+                  const Text('Vazio = todas. Toque para filtrar.',
+                      style: TextStyle(fontSize: 12, color: Gw.textLo)),
                   const SizedBox(height: Gw.s12),
-                  Wrap(
-                    spacing: Gw.s8,
-                    runSpacing: Gw.s8,
-                    children: MockData.disciplines
-                        .map((d) => GwChip(
-                              label: d.name,
-                              selected: true,
-                              accent: d.color,
-                              leading: Container(
-                                width: 8,
-                                height: 8,
-                                decoration: BoxDecoration(
-                                    color: d.color, shape: BoxShape.circle),
-                              ),
-                            ))
-                        .toList(),
+                  subjects.when(
+                    loading: () => const Center(
+                        child: CircularProgressIndicator(color: Gw.primary)),
+                    error: (e, _) => Text('Erro: $e',
+                        style: const TextStyle(color: Gw.textHi)),
+                    data: (list) => list.isEmpty
+                        ? const Text('Crie disciplinas e gere quizzes primeiro.',
+                            style: TextStyle(fontSize: 13, color: Gw.textLo))
+                        : Wrap(
+                            spacing: Gw.s8,
+                            runSpacing: Gw.s8,
+                            children: list.map((s) {
+                              final sel = _selected.contains(s.id);
+                              return GwChip(
+                                label: s.name,
+                                selected: sel,
+                                accent: s.color,
+                                leading: Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                      color: s.color, shape: BoxShape.circle),
+                                ),
+                                onTap: () => setState(() => sel
+                                    ? _selected.remove(s.id)
+                                    : _selected.add(s.id)),
+                              );
+                            }).toList(),
+                          ),
                   ),
-                  const SizedBox(height: Gw.s24),
-                  const Overline('Últimos simulados'),
-                  const SizedBox(height: Gw.s12),
-                  ...MockData.simulados.map(_historyRow),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(Gw.s18, Gw.s8, Gw.s18, Gw.s16),
               child: GlowButton(
-                label: 'Iniciar simulado · $_len',
+                label: _loading ? 'Montando...' : 'Iniciar simulado · $_len',
                 icon: Icons.play_arrow_rounded,
-                onTap: () => context.push('/quiz'),
+                onTap: (_loading || allIds.isEmpty) ? null : () => _start(allIds),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _header(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(Gw.s8, Gw.s8, Gw.s18, 0),
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () => context.pop(),
+            icon: const Icon(Icons.arrow_back_rounded, color: Gw.textHi),
+          ),
+          const Expanded(
+            child: Text('Simulado',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Gw.textHi)),
+          ),
+          const SizedBox(width: 44),
+        ],
       ),
     );
   }
@@ -129,83 +185,12 @@ class _SimuladoScreenState extends State<SimuladoScreen> {
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w800,
+                    height: 1,
                     letterSpacing: -1,
                     color: selected ? Gw.textHi : Gw.textMid)),
             const SizedBox(height: 2),
             Text('questões · $time',
                 style: const TextStyle(fontSize: 12, color: Gw.textLo)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _timerRow() {
-    return GwCard(
-      radius: Gw.rCard,
-      padding: const EdgeInsets.symmetric(horizontal: Gw.s16, vertical: 12),
-      child: Row(
-        children: [
-          const Icon(Icons.schedule_rounded, color: Gw.textLo, size: 20),
-          const SizedBox(width: 12),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Cronômetro',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Gw.textHi)),
-                Text('30 min sugeridos',
-                    style: TextStyle(fontSize: 12, color: Gw.textLo)),
-              ],
-            ),
-          ),
-          Switch(
-            value: _timer,
-            activeThumbColor: Gw.success,
-            onChanged: (v) => setState(() => _timer = v),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _historyRow(SimuladoHistory h) {
-    final color = h.score >= 8 ? Gw.success : Gw.streak;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: Gw.s12),
-      child: GwCard(
-        radius: Gw.rCard,
-        padding: const EdgeInsets.all(14),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(h.label,
-                      style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Gw.textHi)),
-                  const SizedBox(height: 2),
-                  Text(h.date,
-                      style: const TextStyle(fontSize: 12, color: Gw.textLo)),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(Gw.rPill),
-              ),
-              child: Text(h.score.toStringAsFixed(1),
-                  style: TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w800, color: color)),
-            ),
           ],
         ),
       ),

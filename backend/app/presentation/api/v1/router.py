@@ -2,6 +2,7 @@
 from fastapi import APIRouter
 
 from app.presentation.api.v1.routers import (
+    ai_control,
     auth,
     chat,
     flashcards,
@@ -16,6 +17,7 @@ from app.presentation.api.v1.routers import (
 
 api_router = APIRouter()
 api_router.include_router(health.router)
+api_router.include_router(ai_control.router)
 api_router.include_router(auth.router)
 api_router.include_router(subjects.router)
 api_router.include_router(materials.router)

@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/flashcards/flashcard_screen.dart';
 import '../../features/home/home_shell.dart';
-import '../../features/quiz/quiz_screen.dart';
+import '../../features/quiz/quiz_player.dart';
+import '../../features/settings/settings_screen.dart';
 import '../../features/simulado/simulado_screen.dart';
-import '../../features/subject_detail/subject_detail_screen.dart';
+import '../../features/subjects/new_subject_screen.dart';
+import '../../features/subjects/subject_studio_screen.dart';
 import '../../features/themed_quiz/themed_quiz_screen.dart';
 
 /// Transição de página: slide + fade leve (220ms), como no brief.
@@ -35,15 +37,32 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/flashcards',
-      pageBuilder: (_, __) => _slide(const FlashcardScreen()),
+      pageBuilder: (context, state) => _slide(
+        FlashcardScreen(
+          subjectId: int.tryParse(state.uri.queryParameters['subject'] ?? ''),
+        ),
+      ),
     ),
     GoRoute(
-      path: '/subject',
-      pageBuilder: (_, __) => _slide(const SubjectDetailScreen()),
+      path: '/new-subject',
+      pageBuilder: (_, __) => _slide(const NewSubjectScreen()),
     ),
     GoRoute(
-      path: '/quiz',
-      pageBuilder: (_, __) => _slide(const QuizScreen()),
+      path: '/settings',
+      pageBuilder: (_, __) => _slide(const SettingsScreen()),
+    ),
+    GoRoute(
+      path: '/subject-studio',
+      pageBuilder: (context, state) => _slide(
+        SubjectStudioScreen(
+          subjectId: int.tryParse(state.uri.queryParameters['id'] ?? '') ?? 0,
+        ),
+      ),
+    ),
+    GoRoute(
+      path: '/quiz-player',
+      pageBuilder: (context, state) =>
+          _slide(QuizPlayerScreen(args: state.extra! as QuizArgs)),
     ),
     GoRoute(
       path: '/simulado',
